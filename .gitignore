@@ -1,0 +1,5 @@
+mockups/
+previews/
+generate-artworks.py
+prepare-assets.py
+verify-site.cjs

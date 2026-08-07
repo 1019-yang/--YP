@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="林一 · AIGC 视觉设计师个人作品集与简历">
+  <title>林一 · AIGC 视觉设计师</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="assets/lucide.min.js"></script>
+</head>
+<body>
+  <header class="site-header" id="site-header">
+    <div class="nav-inner">
+      <a class="brand" href="#top" aria-label="回到顶部">
+        <span data-field="name"></span>
+        <span class="brand-en" data-field="enName"></span>
+      </a>
+      <nav class="nav-links" aria-label="主导航">
+        <a href="#works">作品</a>
+        <a href="#experience">经历</a>
+        <a href="#about">关于</a>
+        <a href="#contact">联系</a>
+      </nav>
+      <div class="nav-tools">
+        <button class="icon-btn theme-toggle" type="button" aria-label="切换明暗模式">
+          <i data-lucide="sun" class="icon-sun"></i>
+          <i data-lucide="moon" class="icon-moon"></i>
+        </button>
+        <a class="btn btn-ghost btn-download" href="assets/resume-placeholder.pdf" download>
+          <i data-lucide="download"></i>
+          <span>下载简历</span>
+        </a>
+        <button class="icon-btn nav-toggle" type="button" aria-label="打开菜单" aria-expanded="false">
+          <i data-lucide="menu"></i>
+        </button>
+      </div>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <a href="#works">作品</a>
+      <a href="#experience">经历</a>
+      <a href="#about">关于</a>
+      <a href="#contact">联系</a>
+      <a class="btn btn-primary" href="assets/resume-placeholder.pdf" download>下载简历</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero section">
+      <div class="hero-copy reveal">
+        <p class="eyebrow" data-field="eyebrow"></p>
+        <h1 data-field="headline"></h1>
+        <p class="hero-sub" data-field="tagline"></p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#works">
+            <span data-field="worksCta"></span>
+            <i data-lucide="arrow-right"></i>
+          </a>
+          <a class="btn btn-ghost" href="#contact">
+            <span data-field="contactCta"></span>
+          </a>
+        </div>
+      </div>
+      <figure class="hero-figure reveal reveal-delay-1">
+        <img id="hero-image" src="" alt="" width="1350" height="1800" loading="eager">
+        <figcaption>
+          <span data-field="heroCaption"></span>
+          <span class="hero-caption-tag" data-field="heroTag"></span>
+        </figcaption>
+      </figure>
+    </section>
+
+    <section class="stats section" aria-label="数据概览">
+      <div class="stat reveal" data-stat>
+        <strong data-field="stats.0.value"></strong>
+        <span data-field="stats.0.label"></span>
+      </div>
+      <div class="stat reveal reveal-delay-1" data-stat>
+        <strong data-field="stats.1.value"></strong>
+        <span data-field="stats.1.label"></span>
+      </div>
+      <div class="stat reveal reveal-delay-2" data-stat>
+        <strong data-field="stats.2.value"></strong>
+        <span data-field="stats.2.label"></span>
+      </div>
+    </section>
+
+    <section class="works section" id="works">
+      <div class="section-head reveal">
+        <div>
+          <p class="eyebrow">SELECTED WORKS</p>
+          <h2>精选作品</h2>
+        </div>
+        <p class="section-note" data-field="worksNote"></p>
+      </div>
+      <div class="tabs reveal" id="work-tabs" role="tablist" aria-label="作品分类"></div>
+      <div class="works-grid" id="works-grid"></div>
+    </section>
+
+    <section class="experience section" id="experience">
+      <div class="section-head reveal">
+        <div>
+          <p class="eyebrow">EXPERIENCE</p>
+          <h2>工作经历</h2>
+        </div>
+      </div>
+      <ol class="timeline" id="timeline"></ol>
+    </section>
+
+    <section class="about section" id="about">
+      <div class="about-copy reveal">
+        <p class="eyebrow">ABOUT</p>
+        <h2>关于我</h2>
+        <p class="about-bio" data-field="bio"></p>
+      </div>
+      <div class="skills reveal reveal-delay-1">
+        <p class="skills-label">常用工具与能力</p>
+        <ul class="skill-list" id="skill-list"></ul>
+        <p class="skills-extra" data-field="skillsNote"></p>
+      </div>
+    </section>
+
+    <section class="contact section" id="contact">
+      <div class="contact-copy reveal">
+        <p class="eyebrow">CONTACT</p>
+        <h2>联系我</h2>
+        <p data-field="contactIntro"></p>
+      </div>
+      <div class="contact-panel reveal reveal-delay-1">
+        <ul class="contact-list" id="contact-list"></ul>
+        <a class="btn btn-primary contact-cta" data-field="contactCtaLink" href="mailto:">
+          <i data-lucide="mail"></i>
+          <span data-field="contactCta"></span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p><span data-field="footerName"></span></p>
+      <p class="footer-year">© <span id="current-year"></span></p>
+    </div>
+  </footer>
+
+  <button class="icon-btn back-top" type="button" aria-label="回到顶部" id="back-top">
+    <i data-lucide="arrow-up"></i>
+  </button>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="作品大图预览" hidden>
+    <button class="icon-btn lightbox-close" type="button" aria-label="关闭大图">
+      <i data-lucide="x"></i>
+    </button>
+    <figure class="lightbox-content">
+      <video id="lightbox-video" controls playsinline hidden></video>
+      <img id="lightbox-image" src="" alt="">
+      <figcaption>
+        <span id="lightbox-title"></span>
+        <span id="lightbox-meta"></span>
+      </figcaption>
+    </figure>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
