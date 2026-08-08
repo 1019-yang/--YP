@@ -456,6 +456,50 @@ h2 {
   gap: 22px;
 }
 
+.carousel-label {
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+  margin: 6px 0 14px;
+}
+
+.carousel {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 14px;
+  cursor: grab;
+  user-select: none;
+  touch-action: pan-x;
+}
+
+.carousel:active {
+  cursor: grabbing;
+}
+
+.carousel::-webkit-scrollbar {
+  height: 6px;
+}
+
+.carousel::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+  border-radius: 3px;
+}
+
+.carousel-card {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+}
+
+.carousel-card.landscape {
+  width: 460px;
+}
+
+.carousel-card.portrait {
+  width: 300px;
+}
+
 .work-card {
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -974,6 +1018,14 @@ h2 {
   .work-card.square,
   .work-card.panorama {
     grid-column: span 12;
+  }
+
+  .carousel-card.landscape {
+    width: 86vw;
+  }
+
+  .carousel-card.portrait {
+    width: 64vw;
   }
 
   .timeline {

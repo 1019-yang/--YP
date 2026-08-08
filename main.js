@@ -44,7 +44,8 @@
     var layoutClass = "";
     var thumbStyle = "";
     if (isVideo && work.ratio) {
-      if (work.ratio === "9:16" || work.ratio === "3:4") layoutClass = " portrait";
+      layoutClass =
+        work.ratio === "9:16" || work.ratio === "3:4" ? " portrait" : " landscape";
       thumbStyle = 'style="aspect-ratio: ' + (ratios[work.ratio] || "16 / 9") + '"';
     }
     var media;
@@ -75,6 +76,23 @@
     );
   }
 
+  function carouselHtml(label, items) {
+    var html =
+      '<div class="carousel-label">' + label + "</div>" +
+      '<div class="carousel">';
+    items.forEach(function (work) {
+      var index = data.works.indexOf(work);
+      var card = workCardHtml(work, index);
+      card = card.replace(
+        '<article class="work-card ',
+        '<article class="carousel-card work-card '
+      );
+      html += card;
+    });
+    html += "</div>";
+    return html;
+  }
+
   function renderWorkGroups() {
     var tabsWrap = document.getElementById("work-group-tabs");
     var wrap = document.getElementById("works-groups");
@@ -96,12 +114,17 @@
       panelsHtml += '<section class="work-panel' + (active ? " active" : "") + '" data-panel="' + group.id + '">';
 
       if (items.length) {
-        panelsHtml += '<div class="works-grid">';
+        var landscape = [];
+        var portrait = [];
         items.forEach(function (work) {
-          var index = data.works.indexOf(work);
-          panelsHtml += workCardHtml(work, index);
+          if (work.ratio === "9:16" || work.ratio === "3:4") {
+            portrait.push(work);
+          } else {
+            landscape.push(work);
+          }
         });
-        panelsHtml += "</div>";
+        if (landscape.length) panelsHtml += carouselHtml("横屏", landscape);
+        if (portrait.length) panelsHtml += carouselHtml("竖屏", portrait);
       } else {
         panelsHtml += '<p class="group-empty">待补充</p>';
       }
@@ -109,6 +132,34 @@
     });
     tabsWrap.innerHTML = tabsHtml;
     wrap.innerHTML = panelsHtml;
+  }
+
+  function enableCarouselDrag() {
+    document.querySelectorAll(".carousel").forEach(function (el) {
+      var isDown = false;
+      var startX = 0;
+      var startScroll = 0;
+      var moved = false;
+      el.addEventListener("pointerdown", function (event) {
+        isDown = true;
+        moved = false;
+        startX = event.clientX;
+        startScroll = el.scrollLeft;
+      });
+      el.addEventListener("pointermove", function (event) {
+        if (!isDown) return;
+        var dx = event.clientX - startX;
+        if (Math.abs(dx) > 6) moved = true;
+        el.scrollLeft = startScroll - dx;
+      });
+      var endDrag = function () {
+        isDown = false;
+        window.__carouselDragged = moved;
+      };
+      el.addEventListener("pointerup", endDrag);
+      el.addEventListener("pointercancel", endDrag);
+      el.addEventListener("pointerleave", endDrag);
+    });
   }
 
   function bindGroupTabs() {
@@ -263,6 +314,10 @@
 
     var groups = document.getElementById("works-groups");
     groups.addEventListener("click", function (event) {
+      if (window.__carouselDragged) {
+        window.__carouselDragged = false;
+        return;
+      }
       var card = event.target.closest(".work-card");
       if (!card) return;
       openWork(data.works[Number(card.getAttribute("data-index"))]);
@@ -353,6 +408,7 @@
   renderContact();
   refreshIcons();
   bindGroupTabs();
+  enableCarouselDrag();
   bindLightbox();
   bindTheme();
   bindNav();
