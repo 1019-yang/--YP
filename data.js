@@ -28,7 +28,33 @@ window.PORTFOLIO_DATA = {
     "活动执行"
   ],
   skillsNote: "",
-  experience: [
+  education: [
+    {
+      period: "2022.09 - 2026.06",
+      role: "广告学 本科",
+      org: "江汉大学",
+      desc: "GPA 3.62，专业排名前 30%。主修广告策划、广告文案、广告心理学、整合营销、计算广告、影视广告脚本创作等。"
+    },
+    {
+      period: "2024.09 - 2024.11",
+      role: "执行导演",
+      org: "江汉大学知远广告艺术节",
+      desc: "参与创意策划与剧本创作，输出分镜头脚本；统筹演员、时间、选景与场地，把控现场执行；负责主要分镜头拍摄落地、情绪引导与补光。"
+    },
+    {
+      period: "2022.09 - 2023.08",
+      role: "新宣部部委",
+      org: "江汉大学新宣部",
+      desc: "负责校团委公众号封面设计、标题撰写和推文排版，累计 30+ 篇，总阅读量破 5 万，点赞过千；制作新生入学手册，举办桃花诗歌会；为推文和短视频提供素材，采访校运会、录制公开课。"
+    },
+    {
+      period: "2023.03 - 2024.08",
+      role: "宣传部副部长",
+      org: "江汉大学单车俱乐部",
+      desc: ""
+    }
+  ],
+  work: [
     {
       period: "2025.07 - 2026.02",
       role: "新媒体运营",
@@ -40,18 +66,6 @@ window.PORTFOLIO_DATA = {
       role: "全媒体运营",
       org: "长江日报传播中心",
       desc: "参与黄鹤楼宣传片拍摄与脚本共创；在黄鹤楼公园视频号上线 12 支视频，总观看量 100 万+、点赞量 4000+；撰写公众号推文，用 AI 把实时热梗融入内容，参与外出拍摄与出镜。"
-    },
-    {
-      period: "2024.09 - 2024.11",
-      role: "执行导演",
-      org: "江汉大学知远广告艺术节",
-      desc: "参与创意策划与剧本创作，输出分镜头脚本；统筹演员、时间、选景与场地，把控现场执行；负责主要分镜头拍摄落地、情绪引导与补光。"
-    },
-    {
-      period: "2022.09 - 2026.06",
-      role: "广告学 本科",
-      org: "江汉大学",
-      desc: "GPA 3.62，专业排名前 30%。主修广告策划、广告文案、广告心理学、整合营销、计算广告、影视广告脚本创作等。"
     }
   ],
   contactIntro: "如果你在找能独立完成视频策划、拍摄、剪辑和账号运营的人，欢迎联系我。",
@@ -62,18 +76,16 @@ window.PORTFOLIO_DATA = {
     { icon: "map-pin", label: "坐标", value: "待补充" }
   ],
   footerName: "杨鹏 · 新媒体运营",
-  categories: [
-    { id: "all", label: "全部" },
-    { id: "wide", label: "横版 16:9" },
-    { id: "portrait", label: "竖版 3:4" },
-    { id: "square", label: "方形 1:1" },
-    { id: "panorama", label: "全景 3:1" },
-    { id: "video", label: "视频" }
+  workGroups: [
+    { id: "high", label: "高质视频", note: "" },
+    { id: "feed", label: "信息流视频", note: "" },
+    { id: "student", label: "学生时期作品", note: "" }
   ],
   works: [
     {
       type: "video",
       title: "防烫蒸锅 · 商品卡",
+      group: "high",
       category: "video",
       ratio: "16:9",
       tools: "视频策划 · 拍摄 · 剪辑",
@@ -85,6 +97,7 @@ window.PORTFOLIO_DATA = {
     {
       type: "video",
       title: "雪平锅 · 开箱测评",
+      group: "feed",
       category: "video",
       ratio: "16:9",
       tools: "视频策划 · 拍摄 · 剪辑",

@@ -409,6 +409,39 @@ h2 {
   border-color: var(--accent);
 }
 
+.works-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+
+.work-group-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.work-group-head h3 {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.work-group-head p {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.group-empty {
+  padding: 34px 0 30px;
+  color: var(--muted);
+  font-size: 14px;
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius);
+  text-align: center;
+}
+
 .works-grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -545,6 +578,20 @@ h2 {
 }
 
 /* Experience */
+.timeline-block {
+  margin-bottom: 56px;
+}
+
+.timeline-block:last-child {
+  margin-bottom: 0;
+}
+
+.timeline-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
 .timeline {
   border-left: 1px solid var(--line-strong);
   padding-left: 34px;

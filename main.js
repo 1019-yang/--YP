@@ -32,156 +32,88 @@
     }
   }
 
-  function renderTabs() {
-    var wrap = document.getElementById("work-tabs");
+  function workCardHtml(work, index) {
+    var isVideo = work.type === "video";
+    var media;
+    if (isVideo) {
+      media =
+        '<video src="' + work.src + '" poster="' + (work.poster || "") +
+        '" preload="metadata" muted playsinline aria-label="' + (work.alt || work.title) + '"></video>';
+    } else {
+      media =
+        '<img src="' + work.src + '" alt="' + (work.alt || work.title) +
+        '" loading="lazy" decoding="async">';
+    }
+
+    var chipIcon = isVideo ? "play" : "zoom-in";
+    var chipText = isVideo
+      ? (work.duration || work.ratio || "视频")
+      : work.ratio;
+
+    return (
+      '<article class="work-card ' + work.category + '" data-category="' + work.category +
+      '" data-index="' + index + '" role="button" tabindex="0" aria-label="' + work.title + '">' +
+      '<div class="work-thumb">' + media +
+      '<div class="work-overlay"><span class="work-meta-chip"><i data-lucide="' + chipIcon + '"></i>' +
+      chipText + "</span></div></div>" +
+      '<div class="work-body"><h3>' + work.title + "</h3><p>" +
+      (work.tools || "") + " · " + (work.year || "") + "</p></div>" +
+      "</article>"
+    );
+  }
+
+  function renderWorkGroups() {
+    var wrap = document.getElementById("works-groups");
     if (!wrap) return;
-    var categories = data.categories || [];
-    var hasWorks = {};
-    (data.works || []).forEach(function (work) {
-      hasWorks[work.category] = true;
-    });
 
     var html = "";
-    categories.forEach(function (cat, index) {
-      if (cat.id !== "all" && !hasWorks[cat.id]) return;
-      var active = index === 0 ? " active" : "";
-      html +=
-        '<button class="tab' + active + '" type="button" role="tab" data-filter="' +
-        cat.id + '">' + cat.label + "</button>";
+    (data.workGroups || []).forEach(function (group) {
+      var items = [];
+      (data.works || []).forEach(function (work) {
+        if (work.group === group.id) items.push(work);
+      });
+
+      html += '<section class="work-group reveal" data-group="' + group.id + '">';
+      html += '<div class="work-group-head"><h3>' + group.label + "</h3>";
+      if (group.note) html += "<p>" + group.note + "</p>";
+      html += "</div>";
+
+      if (items.length) {
+        html += '<div class="works-grid">';
+        items.forEach(function (work) {
+          var index = data.works.indexOf(work);
+          html += workCardHtml(work, index);
+        });
+        html += "</div>";
+      } else {
+        html += '<p class="group-empty">待补充</p>';
+      }
+      html += "</section>";
     });
     wrap.innerHTML = html;
   }
 
-  function renderWorks() {
-    var grid = document.getElementById("works-grid");
-    if (!grid) return;
-
+  function timelineHtml(items) {
     var html = "";
-    (data.works || []).forEach(function (work, index) {
-      var isVideo = work.type === "video";
-      var media;
-      if (isVideo) {
-        media =
-          '<video src="' + work.src + '" poster="' + (work.poster || "") +
-          '" preload="metadata" muted playsinline aria-label="' + (work.alt || work.title) + '"></video>';
-      } else {
-        media =
-          '<img src="' + work.src + '" alt="' + (work.alt || work.title) +
-          '" loading="lazy" decoding="async" width="' + (work.width || "") + '" height="' + (work.height || "") + '">';
-      }
-
-      var chipIcon = isVideo ? "play" : "zoom-in";
-      var chipText = isVideo
-        ? (work.duration || work.ratio || "视频")
-        : work.ratio;
-
-      html +=
-        '<article class="work-card ' + work.category + '" data-category="' + work.category +
-        '" data-index="' + index + '" role="button" tabindex="0" aria-label="' + work.title + '">' +
-        '<div class="work-thumb">' + media +
-        '<div class="work-overlay"><span class="work-meta-chip"><i data-lucide="' + chipIcon + '"></i>' +
-        chipText + "</span></div></div>" +
-        '<div class="work-body"><h3>' + work.title + "</h3><p>" +
-        (work.tools || "") + " · " + (work.year || "") + "</p></div>" +
-        "</article>";
-    });
-    grid.innerHTML = html;
-  }
-
-  function bindFilters() {
-    var wrap = document.getElementById("work-tabs");
-    var grid = document.getElementById("works-grid");
-    if (!wrap || !grid) return;
-
-    wrap.addEventListener("click", function (event) {
-      var button = event.target.closest(".tab");
-      if (!button) return;
-      wrap.querySelectorAll(".tab").forEach(function (tab) {
-        tab.classList.toggle("active", tab === button);
-      });
-      var filter = button.getAttribute("data-filter");
-      Array.prototype.forEach.call(grid.children, function (card) {
-        var show = filter === "all" || card.getAttribute("data-category") === filter;
-        card.style.display = show ? "" : "none";
-      });
-    });
-  }
-
-  function bindLightbox() {
-    var lightbox = document.getElementById("lightbox");
-    var image = document.getElementById("lightbox-image");
-    var video = document.getElementById("lightbox-video");
-    var title = document.getElementById("lightbox-title");
-    var meta = document.getElementById("lightbox-meta");
-    if (!lightbox || !image || !video) return;
-
-    function openWork(work) {
-      var isVideo = work.type === "video";
-      if (isVideo) {
-        image.hidden = true;
-        video.hidden = false;
-        video.src = work.src;
-        video.poster = work.poster || "";
-        video.play().catch(function () {});
-      } else {
-        video.pause();
-        video.hidden = true;
-        image.hidden = false;
-        image.src = work.src;
-        image.alt = work.alt || work.title;
-      }
-      title.textContent = work.title;
-      var metaParts = [work.tools, work.year, work.ratio];
-      if (work.size) metaParts.push(work.size);
-      if (work.duration) metaParts.push(work.duration);
-      meta.textContent = metaParts.filter(Boolean).join(" · ");
-      lightbox.hidden = false;
-      document.body.style.overflow = "hidden";
-    }
-
-    function closeWork() {
-      lightbox.hidden = true;
-      video.pause();
-      document.body.style.overflow = "";
-    }
-
-    var grid = document.getElementById("works-grid");
-    grid.addEventListener("click", function (event) {
-      var card = event.target.closest(".work-card");
-      if (!card) return;
-      openWork(data.works[Number(card.getAttribute("data-index"))]);
-    });
-    grid.addEventListener("keydown", function (event) {
-      if (event.key !== "Enter" && event.key !== " ") return;
-      var card = event.target.closest(".work-card");
-      if (!card) return;
-      event.preventDefault();
-      openWork(data.works[Number(card.getAttribute("data-index"))]);
-    });
-
-    lightbox.addEventListener("click", function (event) {
-      if (event.target === lightbox) closeWork();
-    });
-    document.querySelector(".lightbox-close").addEventListener("click", closeWork);
-    document.addEventListener("keydown", function (event) {
-      if (event.key === "Escape" && !lightbox.hidden) closeWork();
-    });
-  }
-
-  function renderExperience() {
-    var timeline = document.getElementById("timeline");
-    if (!timeline) return;
-    var html = "";
-    (data.experience || []).forEach(function (item) {
+    (items || []).forEach(function (item) {
       html +=
         '<li class="timeline-item">' +
         '<p class="timeline-period">' + item.period + "</p>" +
         "<h3>" + item.role + "</h3>" +
-        '<p class="timeline-org">' + item.org + "</p>" +
-        '<p class="timeline-desc">' + item.desc + "</p>" +
-        "</li>";
+        '<p class="timeline-org">' + item.org + "</p>";
+      if (item.desc) {
+        html += '<p class="timeline-desc">' + item.desc + "</p>";
+      }
+      html += "</li>";
     });
-    timeline.innerHTML = html;
+    return html;
+  }
+
+  function renderTimelines() {
+    var education = document.getElementById("education-timeline");
+    var work = document.getElementById("work-timeline");
+    if (education) education.innerHTML = timelineHtml(data.education);
+    if (work) work.innerHTML = timelineHtml(data.work);
   }
 
   function renderSkills() {
@@ -256,6 +188,67 @@
     });
   }
 
+  function bindLightbox() {
+    var lightbox = document.getElementById("lightbox");
+    var image = document.getElementById("lightbox-image");
+    var video = document.getElementById("lightbox-video");
+    var title = document.getElementById("lightbox-title");
+    var meta = document.getElementById("lightbox-meta");
+    if (!lightbox || !image || !video) return;
+
+    function openWork(work) {
+      var isVideo = work.type === "video";
+      if (isVideo) {
+        image.hidden = true;
+        video.hidden = false;
+        video.src = work.src;
+        video.poster = work.poster || "";
+        video.play().catch(function () {});
+      } else {
+        video.pause();
+        video.hidden = true;
+        image.hidden = false;
+        image.src = work.src;
+        image.alt = work.alt || work.title;
+      }
+      title.textContent = work.title;
+      var metaParts = [work.tools, work.year, work.ratio];
+      if (work.size) metaParts.push(work.size);
+      if (work.duration) metaParts.push(work.duration);
+      meta.textContent = metaParts.filter(Boolean).join(" · ");
+      lightbox.hidden = false;
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeWork() {
+      lightbox.hidden = true;
+      video.pause();
+      document.body.style.overflow = "";
+    }
+
+    var groups = document.getElementById("works-groups");
+    groups.addEventListener("click", function (event) {
+      var card = event.target.closest(".work-card");
+      if (!card) return;
+      openWork(data.works[Number(card.getAttribute("data-index"))]);
+    });
+    groups.addEventListener("keydown", function (event) {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      var card = event.target.closest(".work-card");
+      if (!card) return;
+      event.preventDefault();
+      openWork(data.works[Number(card.getAttribute("data-index"))]);
+    });
+
+    lightbox.addEventListener("click", function (event) {
+      if (event.target === lightbox) closeWork();
+    });
+    document.querySelector(".lightbox-close").addEventListener("click", closeWork);
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && !lightbox.hidden) closeWork();
+    });
+  }
+
   function bindReveal() {
     var items = document.querySelectorAll(".reveal");
     if (!("IntersectionObserver" in window)) {
@@ -319,13 +312,11 @@
   }
 
   fillFields();
-  renderTabs();
-  renderWorks();
-  renderExperience();
+  renderWorkGroups();
+  renderTimelines();
   renderSkills();
   renderContact();
   refreshIcons();
-  bindFilters();
   bindLightbox();
   bindTheme();
   bindNav();
