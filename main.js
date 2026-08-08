@@ -34,6 +34,19 @@
 
   function workCardHtml(work, index) {
     var isVideo = work.type === "video";
+    var ratios = {
+      "16:9": "16 / 9",
+      "9:16": "9 / 16",
+      "3:4": "3 / 4",
+      "4:3": "4 / 3",
+      "1:1": "1 / 1"
+    };
+    var layoutClass = "";
+    var thumbStyle = "";
+    if (isVideo && work.ratio) {
+      if (work.ratio === "9:16" || work.ratio === "3:4") layoutClass = " portrait";
+      thumbStyle = 'style="aspect-ratio: ' + (ratios[work.ratio] || "16 / 9") + '"';
+    }
     var media;
     if (isVideo) {
       media =
@@ -51,13 +64,13 @@
       : work.ratio;
 
     return (
-      '<article class="work-card ' + work.category + '" data-category="' + work.category +
+      '<article class="work-card ' + work.category + layoutClass + '" data-category="' + work.category +
       '" data-index="' + index + '" role="button" tabindex="0" aria-label="' + work.title + '">' +
-      '<div class="work-thumb">' + media +
+      '<div class="work-thumb" ' + thumbStyle + ">" + media +
       '<div class="work-overlay"><span class="work-meta-chip"><i data-lucide="' + chipIcon + '"></i>' +
       chipText + "</span></div></div>" +
       '<div class="work-body"><h3>' + work.title + "</h3><p>" +
-      (work.tools || "") + " · " + (work.year || "") + "</p></div>" +
+      [work.tools, work.year].filter(Boolean).join(" · ") + "</p></div>" +
       "</article>"
     );
   }

@@ -105,6 +105,72 @@ window.PORTFOLIO_DATA = {
       src: "assets/videos/snow-pot-unboxing-web.mp4",
       poster: "assets/videos/snow-pot-poster.jpg",
       alt: "雪平锅开箱测评视频作品"
+    },
+    {
+      type: "video",
+      title: "美团 · 纪录片",
+      group: "student",
+      category: "video",
+      ratio: "16:9",
+      tools: "学生时期作品",
+      src: "assets/videos/meituan-documentary.mp4",
+      poster: "assets/videos/meituan-documentary-poster.jpg",
+      alt: "美团纪录片视频作品"
+    },
+    {
+      type: "video",
+      title: "逃离乌托邦 · 预告片",
+      group: "student",
+      category: "video",
+      ratio: "16:9",
+      tools: "学生时期作品",
+      src: "assets/videos/utopia-trailer.mp4",
+      poster: "assets/videos/utopia-trailer-poster.jpg",
+      alt: "逃离乌托邦预告片视频作品"
+    },
+    {
+      type: "video",
+      title: "雅客棒棒糖",
+      group: "student",
+      category: "video",
+      ratio: "16:9",
+      tools: "学生时期作品",
+      src: "assets/videos/yake-lollipop.mp4",
+      poster: "assets/videos/yake-lollipop-poster.jpg",
+      alt: "雅客棒棒糖视频作品"
+    },
+    {
+      type: "video",
+      title: "长江日报 · 采访",
+      group: "student",
+      category: "video",
+      ratio: "9:16",
+      tools: "学生时期作品",
+      src: "assets/videos/changjiang-interview-1.mp4",
+      poster: "assets/videos/changjiang-interview-1-poster.jpg",
+      alt: "长江日报采访视频作品"
+    },
+    {
+      type: "video",
+      title: "长江日报 · 采访 2",
+      group: "student",
+      category: "video",
+      ratio: "3:4",
+      tools: "学生时期作品",
+      src: "assets/videos/changjiang-interview-2.mp4",
+      poster: "assets/videos/changjiang-interview-2-poster.jpg",
+      alt: "长江日报采访二视频作品"
+    },
+    {
+      type: "video",
+      title: "长江日报 · 研学",
+      group: "student",
+      category: "video",
+      ratio: "9:16",
+      tools: "学生时期作品",
+      src: "assets/videos/changjiang-study.mp4",
+      poster: "assets/videos/changjiang-study-poster.jpg",
+      alt: "长江日报研学视频作品"
     }
   ]
 };

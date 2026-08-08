@@ -488,6 +488,10 @@ h2 {
   grid-column: span 7;
 }
 
+.work-card.video.portrait {
+  grid-column: span 5;
+}
+
 .work-card.portrait {
   grid-column: span 5;
 }
