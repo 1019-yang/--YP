@@ -121,8 +121,28 @@ window.PORTFOLIO_DATA = {
       year: "2026",
       src: "assets/artwork-panorama.png",
       alt: "全景长图占位图"
+    },
+    {
+      type: "video",
+      title: "防烫蒸锅 · 商品卡",
+      category: "video",
+      ratio: "16:9",
+      tools: "AIGC 视频 · 卖点种草",
+      year: "2026",
+      src: "assets/videos/steamer-product-card.mp4",
+      poster: "assets/videos/steamer-poster.jpg",
+      alt: "防烫蒸锅商品卡视频作品"
+    },
+    {
+      type: "video",
+      title: "雪平锅 · 开箱测评",
+      category: "video",
+      ratio: "16:9",
+      tools: "AIGC 视频 · 开箱测评",
+      year: "2026",
+      src: "assets/videos/snow-pot-unboxing.mp4",
+      poster: "assets/videos/snow-pot-poster.jpg",
+      alt: "雪平锅开箱测评视频作品"
     }
-    // 视频作品示例：把视频文件放进 assets/videos/，并复制下面这行到 works 数组末尾（去掉行首注释符号）即可。
-    // { type: "video", title: "新品发布 · 动态主视觉", category: "video", ratio: "16:9", duration: "0:15", tools: "After Effects · Runway", year: "2026", src: "assets/videos/example.mp4", poster: "assets/artwork-wide.png", alt: "动态视频占位封面" }
   ]
 };
