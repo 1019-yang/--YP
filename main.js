@@ -32,7 +32,7 @@
     }
   }
 
-  function workCardHtml(work, index) {
+  function workCardHtml(work, index, forceLandscape) {
     var isVideo = work.type === "video";
     var ratios = {
       "16:9": "16 / 9",
@@ -44,9 +44,14 @@
     var layoutClass = "";
     var thumbStyle = "";
     if (isVideo && work.ratio) {
-      layoutClass =
-        work.ratio === "9:16" || work.ratio === "3:4" ? " portrait" : " landscape";
-      thumbStyle = 'style="aspect-ratio: ' + (ratios[work.ratio] || "16 / 9") + '"';
+      if (forceLandscape) {
+        layoutClass = " landscape";
+        thumbStyle = 'style="aspect-ratio: 16 / 9"';
+      } else {
+        layoutClass =
+          work.ratio === "9:16" || work.ratio === "3:4" ? " portrait" : " landscape";
+        thumbStyle = 'style="aspect-ratio: ' + (ratios[work.ratio] || "16 / 9") + '"';
+      }
     }
     var media;
     if (isVideo) {
@@ -76,13 +81,14 @@
     );
   }
 
-  function carouselHtml(label, items) {
-    var html =
-      '<div class="carousel-label">' + label + "</div>" +
-      '<div class="carousel">';
+  function carouselHtml(label, items, forceLandscape) {
+    var html = label
+      ? '<div class="carousel-label">' + label + "</div>"
+      : "";
+    html += '<div class="carousel">';
     items.forEach(function (work) {
       var index = data.works.indexOf(work);
-      var card = workCardHtml(work, index);
+      var card = workCardHtml(work, index, forceLandscape);
       card = card.replace(
         '<article class="work-card ',
         '<article class="carousel-card work-card '
@@ -114,6 +120,11 @@
       panelsHtml += '<section class="work-panel' + (active ? " active" : "") + '" data-panel="' + group.id + '">';
 
       if (items.length) {
+        if (group.id === "feed") {
+          panelsHtml += carouselHtml("", items, true);
+          panelsHtml += "</section>";
+          return;
+        }
         var landscape = [];
         var portrait = [];
         items.forEach(function (work) {
