@@ -1,52 +1,67 @@
 window.PORTFOLIO_DATA = {
-  name: "林一",
-  enName: "YI LIN",
-  eyebrow: "AIGC 视觉设计师 · 作品集",
-  headline: "用 AI 把想象力，做成可落地的商业视觉",
-  tagline: "专注电商视觉 3 年，服务美妆、3C、服饰等品牌，擅长用 AIGC 工具完成从创意概念到成片交付的全流程。",
+  name: "杨鹏",
+  enName: "YANG PENG",
+  eyebrow: "新媒体运营 · 作品集",
+  headline: "能写脚本、能拍能剪、会用数据复盘的新媒体运营",
+  tagline: "广告学专业，2026 届本科。做过健康科技公司新媒体运营和长江日报全媒体运营，负责视频策划、拍摄、剪辑、发布与数据复盘，也写过公众号推文。",
   worksCta: "查看作品",
   contactCta: "联系我",
-  worksNote: "按原尺寸完整展示",
-  heroCaption: "2026 最新主视觉",
-  heroTag: "AIGC · 概念成片",
-  heroImage: "assets/artwork-portrait-1.png",
-  heroImageAlt: "竖版 AIGC 概念作品占位图",
+  worksNote: "视频作品 · 按原尺寸完整展示",
+  heroCaption: "新媒体 · 视频作品",
+  heroTag: "商品卡 · 内容种草",
+  heroImage: "assets/hero-portrait.jpg",
+  heroImageAlt: "杨鹏新媒体运营个人作品集封面",
   stats: [
-    { value: "120+", label: "交付商业作品" },
-    { value: "18", label: "合作品牌" },
-    { value: "6", label: "熟练 AIGC 工具" }
+    { value: "100万+", label: "视频总观看量" },
+    { value: "4000+", label: "视频点赞量" },
+    { value: "12", label: "上线视频" }
   ],
-  bio: "我是林一，一名专注电商与品牌视觉的 AIGC 设计师。我的工作方式是把 Midjourney、Stable Diffusion、ComfyUI 等生成式工具，与成熟的设计方法结合，在概念、成本、交付速度之间找到平衡。过去三年，我为美妆、3C、服饰类品牌完成过主视觉、详情页、开屏长图和动态素材等不同类型的商业作品。",
-  skills: ["Midjourney", "Stable Diffusion", "ComfyUI", "Photoshop", "After Effects", "Blender", "Figma", "Runway"],
-  skillsNote: "以上为占位能力清单，替换真实资料时可直接修改 data.js。",
+  bio: "广告学专业，2026 届本科。做过健康科技公司新媒体运营和长江日报全媒体运营，负责视频策划、拍摄、剪辑、发布与数据复盘，也写过公众号推文。做过百万+播放的短视频，熟悉从创意到落地的完整流程。",
+  skills: [
+    "视频策划",
+    "脚本创作",
+    "拍摄与剪辑",
+    "账号运营",
+    "公众号排版与文案",
+    "AI 内容工具",
+    "数据分析",
+    "活动执行"
+  ],
+  skillsNote: "",
   experience: [
     {
-      period: "2024 — 至今",
-      role: "AIGC 视觉设计师",
-      org: "独立设计师 / 品牌项目合作",
-      desc: "服务美妆、3C、服饰类品牌，负责主视觉、电商详情页、开屏素材与动态视频的创意和交付，建立可复用的 AI 视觉工作流。"
+      period: "2025.07 - 2026.02",
+      role: "新媒体运营",
+      org: "北京爱和健康科技有限公司",
+      desc: "负责医生账号和运动康复师账号的视频策划、脚本、拍摄、剪辑与发布；围绕用户增长与导流优化内容，根据数据持续调整；跟进发布效果并复盘；参与九安医疗三十周年庆典的策划与执行，统筹各地祝福视频的收集、汇总与剪辑。"
     },
     {
-      period: "2022 — 2024",
-      role: "电商视觉设计师",
-      org: "品牌电商团队",
-      desc: "负责店铺大促视觉、商品主图与详情页设计，通过统一视觉模板和素材管理提升批量产出效率。"
+      period: "2024.07 - 2024.08",
+      role: "全媒体运营",
+      org: "长江日报传播中心",
+      desc: "参与黄鹤楼宣传片拍摄与脚本共创；在黄鹤楼公园视频号上线 12 支视频，总观看量 100 万+、点赞量 4000+；撰写公众号推文，用 AI 把实时热梗融入内容，参与外出拍摄与出镜。"
     },
     {
-      period: "2021 — 2022",
-      role: "平面设计师",
-      org: "创意工作室",
-      desc: "参与品牌海报、线下物料与社交媒体视觉设计，建立扎实的平面设计与执行基础。"
+      period: "2024.09 - 2024.11",
+      role: "执行导演",
+      org: "江汉大学知远广告艺术节",
+      desc: "参与创意策划与剧本创作，输出分镜头脚本；统筹演员、时间、选景与场地，把控现场执行；负责主要分镜头拍摄落地、情绪引导与补光。"
+    },
+    {
+      period: "2022.09 - 2026.06",
+      role: "广告学 本科",
+      org: "江汉大学",
+      desc: "GPA 3.62，专业排名前 30%。主修广告策划、广告文案、广告心理学、整合营销、计算广告、影视广告脚本创作等。"
     }
   ],
-  contactIntro: "如果你正在寻找能把 AI 工具落进电商视觉流程的设计师，欢迎和我聊聊。",
+  contactIntro: "如果你在找能独立完成视频策划、拍摄、剪辑和账号运营的人，欢迎联系我。",
   contact: [
-    { icon: "mail", label: "邮箱", value: "hello@example.com" },
-    { icon: "message-circle", label: "微信", value: "YI-LIN-2026" },
-    { icon: "map-pin", label: "坐标", value: "上海" },
-    { icon: "external-link", label: "作品主页", value: "behance.net/yilin-aigc" }
+    { icon: "phone", label: "电话", value: "13628688348" },
+    { icon: "mail", label: "邮箱", value: "1019073032@qq.com" },
+    { icon: "message-circle", label: "微信", value: "待补充" },
+    { icon: "map-pin", label: "坐标", value: "待补充" }
   ],
-  footerName: "林一 · AIGC 视觉设计师",
+  footerName: "杨鹏 · 新媒体运营",
   categories: [
     { id: "all", label: "全部" },
     { id: "wide", label: "横版 16:9" },
@@ -57,77 +72,11 @@ window.PORTFOLIO_DATA = {
   ],
   works: [
     {
-      type: "image",
-      title: "星光保湿精华 · 主视觉",
-      category: "wide",
-      ratio: "16:9",
-      size: "2400 × 1350",
-      tools: "Midjourney · Photoshop",
-      year: "2026",
-      src: "assets/artwork-wide.png",
-      alt: "抽象渐变主视觉占位图"
-    },
-    {
-      type: "image",
-      title: "街头系列 · 潮鞋海报",
-      category: "portrait",
-      ratio: "3:4",
-      size: "1350 × 1800",
-      tools: "Stable Diffusion · ComfyUI",
-      year: "2026",
-      src: "assets/artwork-portrait-1.png",
-      alt: "竖版海报占位图"
-    },
-    {
-      type: "image",
-      title: "果茶新品 · 电商主图",
-      category: "square",
-      ratio: "1:1",
-      size: "1600 × 1600",
-      tools: "Midjourney · Photoshop",
-      year: "2025",
-      src: "assets/artwork-square-1.png",
-      alt: "方形主图占位图"
-    },
-    {
-      type: "image",
-      title: "耳机产品 · 场景渲染",
-      category: "square",
-      ratio: "1:1",
-      size: "1600 × 1600",
-      tools: "ComfyUI · Blender",
-      year: "2025",
-      src: "assets/artwork-square-2.png",
-      alt: "产品渲染占位图"
-    },
-    {
-      type: "image",
-      title: "国潮美妆 · 节气海报",
-      category: "portrait",
-      ratio: "3:4",
-      size: "1350 × 1800",
-      tools: "Midjourney · PS",
-      year: "2025",
-      src: "assets/artwork-portrait-2.png",
-      alt: "节气海报占位图"
-    },
-    {
-      type: "image",
-      title: "智能手表 · 开屏长图",
-      category: "panorama",
-      ratio: "3:1",
-      size: "3600 × 1200",
-      tools: "Stable Diffusion · Photoshop",
-      year: "2026",
-      src: "assets/artwork-panorama.png",
-      alt: "全景长图占位图"
-    },
-    {
       type: "video",
       title: "防烫蒸锅 · 商品卡",
       category: "video",
       ratio: "16:9",
-      tools: "AIGC 视频 · 卖点种草",
+      tools: "视频策划 · 拍摄 · 剪辑",
       year: "2026",
       src: "assets/videos/steamer-product-card-web.mp4",
       poster: "assets/videos/steamer-poster.jpg",
@@ -138,7 +87,7 @@ window.PORTFOLIO_DATA = {
       title: "雪平锅 · 开箱测评",
       category: "video",
       ratio: "16:9",
-      tools: "AIGC 视频 · 开箱测评",
+      tools: "视频策划 · 拍摄 · 剪辑",
       year: "2026",
       src: "assets/videos/snow-pot-unboxing-web.mp4",
       poster: "assets/videos/snow-pot-poster.jpg",

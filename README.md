@@ -11,9 +11,9 @@ designer-portfolio/
 ├── data.js             # 个人资料、作品、经历等全部内容
 ├── main.js             # 交互逻辑
 ├── assets/
-│   ├── artwork-*.png   # 占位作品图
 │   ├── lucide.min.js   # 本地图标库
-│   └── resume-placeholder.pdf
+│   ├── hero-portrait.jpg # 首屏封面
+│   └── resume.pdf       # 可下载简历
 └── README.md
 ```
 
@@ -85,4 +85,4 @@ git push -u origin main
 3. 在 GitHub 仓库页面打开 Settings → Pages，把 Source 设为 `main` 分支的根目录。
 4. 部署完成后访问 `https://你的用户名.github.io/portfolio/`，把这个链接发给 HR 即可。
 
-> 当前 `data.js` 和 `assets/` 均为占位内容，公开部署前请替换为真实资料。
+> 当前网站已填入杨鹏的真实简历信息；微信、坐标等未提供字段显示为“待补充”，补齐后更新 `data.js` 并推送即可。
