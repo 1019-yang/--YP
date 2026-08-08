@@ -415,6 +415,14 @@ h2 {
   gap: 56px;
 }
 
+.work-panel {
+  display: none;
+}
+
+.work-panel.active {
+  display: block;
+}
+
 .work-group-head {
   display: flex;
   align-items: baseline;

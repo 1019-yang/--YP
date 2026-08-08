@@ -63,34 +63,56 @@
   }
 
   function renderWorkGroups() {
+    var tabsWrap = document.getElementById("work-group-tabs");
     var wrap = document.getElementById("works-groups");
-    if (!wrap) return;
+    if (!tabsWrap || !wrap) return;
 
-    var html = "";
-    (data.workGroups || []).forEach(function (group) {
+    var tabsHtml = "";
+    var panelsHtml = "";
+    (data.workGroups || []).forEach(function (group, index) {
       var items = [];
       (data.works || []).forEach(function (work) {
         if (work.group === group.id) items.push(work);
       });
+      var active = index === 0 ? " active" : "";
 
-      html += '<section class="work-group reveal" data-group="' + group.id + '">';
-      html += '<div class="work-group-head"><h3>' + group.label + "</h3>";
-      if (group.note) html += "<p>" + group.note + "</p>";
-      html += "</div>";
+      tabsHtml +=
+        '<button class="tab' + active + '" type="button" role="tab" data-group="' +
+        group.id + '">' + group.label + "</button>";
+
+      panelsHtml += '<section class="work-panel' + (active ? " active" : "") + '" data-panel="' + group.id + '">';
 
       if (items.length) {
-        html += '<div class="works-grid">';
+        panelsHtml += '<div class="works-grid">';
         items.forEach(function (work) {
           var index = data.works.indexOf(work);
-          html += workCardHtml(work, index);
+          panelsHtml += workCardHtml(work, index);
         });
-        html += "</div>";
+        panelsHtml += "</div>";
       } else {
-        html += '<p class="group-empty">待补充</p>';
+        panelsHtml += '<p class="group-empty">待补充</p>';
       }
-      html += "</section>";
+      panelsHtml += "</section>";
     });
-    wrap.innerHTML = html;
+    tabsWrap.innerHTML = tabsHtml;
+    wrap.innerHTML = panelsHtml;
+  }
+
+  function bindGroupTabs() {
+    var wrap = document.getElementById("work-group-tabs");
+    var panels = document.getElementById("works-groups");
+    if (!wrap || !panels) return;
+    wrap.addEventListener("click", function (event) {
+      var button = event.target.closest(".tab");
+      if (!button) return;
+      wrap.querySelectorAll(".tab").forEach(function (tab) {
+        tab.classList.toggle("active", tab === button);
+      });
+      var group = button.getAttribute("data-group");
+      Array.prototype.forEach.call(panels.children, function (panel) {
+        panel.classList.toggle("active", panel.getAttribute("data-panel") === group);
+      });
+    });
   }
 
   function timelineHtml(items) {
@@ -317,6 +339,7 @@
   renderSkills();
   renderContact();
   refreshIcons();
+  bindGroupTabs();
   bindLightbox();
   bindTheme();
   bindNav();
