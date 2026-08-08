@@ -129,7 +129,7 @@ window.PORTFOLIO_DATA = {
       ratio: "16:9",
       tools: "AIGC 视频 · 卖点种草",
       year: "2026",
-      src: "assets/videos/steamer-product-card.mp4",
+      src: "assets/videos/steamer-product-card-web.mp4",
       poster: "assets/videos/steamer-poster.jpg",
       alt: "防烫蒸锅商品卡视频作品"
     },
@@ -140,7 +140,7 @@ window.PORTFOLIO_DATA = {
       ratio: "16:9",
       tools: "AIGC 视频 · 开箱测评",
       year: "2026",
-      src: "assets/videos/snow-pot-unboxing.mp4",
+      src: "assets/videos/snow-pot-unboxing-web.mp4",
       poster: "assets/videos/snow-pot-poster.jpg",
       alt: "雪平锅开箱测评视频作品"
     }
