@@ -85,7 +85,7 @@ window.PORTFOLIO_DATA = {
     {
       type: "video",
       title: "防烫蒸锅 · 商品卡",
-      group: "high",
+      group: "feed",
       category: "video",
       ratio: "16:9",
       tools: "视频策划 · 拍摄 · 剪辑",
@@ -105,6 +105,54 @@ window.PORTFOLIO_DATA = {
       src: "assets/videos/snow-pot-unboxing-web.mp4",
       poster: "assets/videos/snow-pot-poster.jpg",
       alt: "雪平锅开箱测评视频作品"
+    },
+    {
+      type: "video",
+      title: "乌金檀木 · 整木菜板",
+      group: "feed",
+      category: "video",
+      ratio: "9:16",
+      tools: "视频策划 · 拍摄 · 剪辑",
+      year: "2026",
+      src: "assets/videos/wujin-cutting-board.mp4",
+      poster: "assets/videos/wujin-cutting-board-poster.jpg",
+      alt: "乌金檀木整木菜板商品卡视频作品"
+    },
+    {
+      type: "video",
+      title: "0涂层煎锅 · 商品卡",
+      group: "feed",
+      category: "video",
+      ratio: "9:16",
+      tools: "视频策划 · 拍摄 · 剪辑",
+      year: "2026",
+      src: "assets/videos/coating-free-pan.mp4",
+      poster: "assets/videos/coating-free-pan-poster.jpg",
+      alt: "0涂层煎锅商品卡视频作品"
+    },
+    {
+      type: "video",
+      title: "苏泊尔 · 鲨鱼齿刀具",
+      group: "feed",
+      category: "video",
+      ratio: "9:16",
+      tools: "视频策划 · 拍摄 · 剪辑",
+      year: "2026",
+      src: "assets/videos/supur-knife-set.mp4",
+      poster: "assets/videos/supur-knife-set-poster.jpg",
+      alt: "苏泊尔鲨鱼齿刀具新品视频作品"
+    },
+    {
+      type: "video",
+      title: "纯钛炒锅 2 代 · 产品展示",
+      group: "feed",
+      category: "video",
+      ratio: "9:16",
+      tools: "视频策划 · 拍摄 · 剪辑",
+      year: "2026",
+      src: "assets/videos/titanium-wok.mp4",
+      poster: "assets/videos/titanium-wok-poster.jpg",
+      alt: "纯钛炒锅二代产品展示视频作品"
     },
     {
       type: "video",
