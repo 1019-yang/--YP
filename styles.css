@@ -311,14 +311,15 @@ h2 {
   left: 0;
   top: 50%;
   transform: translateY(-50%);
+  transform-origin: left center;
   margin: 0;
   font-size: 150px;
   line-height: 0.95;
   font-weight: 800;
   letter-spacing: 0;
   color: var(--red);
-  transition: top 0.5s ease, transform 0.5s ease, font-size 0.5s ease,
-    color 0.5s ease, left 0.5s ease;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.4s ease, opacity 0.3s ease;
 }
 
 .masked-heading {
@@ -406,12 +407,7 @@ h2 {
 }
 
 .hero.is-expanded .hero-name {
-  top: -61px;
-  left: 0;
-  transform: none;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1.5;
+  transform: translate3d(0, -50%, 0) translateY(-320px) scale(0.16);
   color: var(--text);
 }
 
@@ -1088,6 +1084,10 @@ h2 {
     font-size: 96px;
   }
 
+  .hero.is-expanded .hero-name {
+    transform: translate3d(0, -50%, 0) translateY(-235px) scale(0.16);
+  }
+
   .masked-heading {
     font-size: 96px;
   }
@@ -1151,6 +1151,10 @@ h2 {
     font-size: 64px;
   }
 
+  .hero.is-expanded .hero-name {
+    transform: translate3d(0, -50%, 0) translateY(-215px) scale(0.16);
+  }
+
   .masked-heading {
     font-size: 64px;
   }
@@ -1170,10 +1174,6 @@ h2 {
 
   .hero-topline {
     margin-bottom: 28px;
-  }
-
-  .hero.is-expanded .hero-name {
-    top: -49px;
   }
 
   h2 {
@@ -1227,6 +1227,10 @@ h2 {
 @media (max-width: 420px) {
   .hero-name {
     font-size: 46px;
+  }
+
+  .hero.is-expanded .hero-name {
+    transform: translate3d(0, -50%, 0) translateY(-218px) scale(0.16);
   }
 
   .masked-heading {

@@ -292,21 +292,29 @@
     var name = document.querySelector(".hero-name");
     var video = document.querySelector(".masked-heading__source");
     if (!button || !hero || !figure || !name) return;
+    var swapTimer = null;
     button.addEventListener("click", function () {
-      var expanded = hero.classList.toggle("is-expanded");
-      figure.classList.toggle("is-hidden", !expanded);
-      name.innerHTML = expanded
-        ? 'YANG PENG <span class="hero-dot-inline">·</span> 作品集'
-        : "YANG PENG";
-      if (expanded) {
+      var willExpand = !hero.classList.contains("is-expanded");
+      if (willExpand) {
+        hero.classList.add("is-expanded");
+        figure.classList.remove("is-hidden");
         syncMaskedHeading();
         if (video) video.play().catch(function () {});
-      } else if (video) {
-        video.pause();
+        swapTimer = window.setTimeout(function () {
+          name.innerHTML =
+            'YANG PENG <span class="hero-dot-inline">·</span> 作品集';
+        }, 520);
+      } else {
+        window.clearTimeout(swapTimer);
+        name.innerHTML = "YANG PENG";
+        void name.offsetWidth;
+        hero.classList.remove("is-expanded");
+        figure.classList.add("is-hidden");
+        if (video) video.pause();
       }
-      button.setAttribute("aria-expanded", String(expanded));
+      button.setAttribute("aria-expanded", String(willExpand));
       var label = button.querySelector("span");
-      if (label) label.textContent = expanded ? "隐藏形象照" : "查看形象照";
+      if (label) label.textContent = willExpand ? "隐藏形象照" : "查看形象照";
     });
   }
 
