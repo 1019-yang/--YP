@@ -290,14 +290,44 @@
     var hero = document.querySelector(".hero");
     var figure = document.querySelector(".hero-figure");
     var name = document.querySelector(".hero-name");
+    var video = document.querySelector(".masked-heading__source");
     if (!button || !hero || !figure || !name) return;
     button.addEventListener("click", function () {
       var expanded = hero.classList.toggle("is-expanded");
       figure.classList.toggle("is-hidden", !expanded);
       name.textContent = expanded ? "YANG PENG · 作品集" : "YANG PENG";
+      if (expanded) {
+        syncMaskedHeading();
+        if (video) video.play().catch(function () {});
+      } else if (video) {
+        video.pause();
+      }
       button.setAttribute("aria-expanded", String(expanded));
       var label = button.querySelector("span");
       if (label) label.textContent = expanded ? "隐藏形象照" : "查看形象照";
+    });
+  }
+
+  function syncMaskedHeading() {
+    var root = document.getElementById("masked-heading");
+    var clip = document.getElementById("hero-mask");
+    if (!root || !clip) return;
+    var measure = root.querySelector(".masked-heading__measure");
+    if (!measure) return;
+    clip.innerHTML = "";
+    var cs = window.getComputedStyle(measure);
+    measure.querySelectorAll(".masked-heading__word").forEach(function (word) {
+      var base = word.querySelector(".masked-heading__baseline");
+      var text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+      text.textContent = word.textContent.replace(/\s+/g, " ").trim();
+      text.setAttribute("x", String(word.offsetLeft));
+      text.setAttribute("y", String(base.offsetTop));
+      text.style.fontFamily = cs.fontFamily;
+      text.style.fontSize = cs.fontSize;
+      text.style.fontWeight = cs.fontWeight;
+      text.style.fontStyle = cs.fontStyle;
+      text.style.letterSpacing = cs.letterSpacing;
+      clip.appendChild(text);
     });
   }
 
@@ -437,6 +467,12 @@
   bindGroupTabs();
   enableCarouselDrag();
   bindHeroImageToggle();
+  syncMaskedHeading();
+  var maskedRoot = document.getElementById("masked-heading");
+  if (maskedRoot && "ResizeObserver" in window) {
+    var maskedResize = new ResizeObserver(syncMaskedHeading);
+    maskedResize.observe(maskedRoot);
+  }
   bindLightbox();
   bindTheme();
   bindNav();
