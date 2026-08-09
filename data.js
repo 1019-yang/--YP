@@ -6,16 +6,8 @@ window.PORTFOLIO_DATA = {
   tagline: "广告学专业，2026 届本科。做过健康科技公司新媒体运营和长江日报全媒体运营，负责视频策划、拍摄、剪辑、发布与数据复盘，也写过公众号推文。",
   worksCta: "查看作品",
   contactCta: "联系我",
-  worksNote: "视频作品 · 按原尺寸完整展示",
-  heroCaption: "新媒体 · 视频作品",
-  heroTag: "商品卡 · 内容种草",
   heroImage: "assets/hero-portrait.jpg",
   heroImageAlt: "杨鹏新媒体运营个人作品集封面",
-  stats: [
-    { value: "100万+", label: "视频总观看量" },
-    { value: "4000+", label: "视频点赞量" },
-    { value: "12", label: "上线视频" }
-  ],
   bio: "广告学专业，2026 届本科。做过健康科技公司新媒体运营和长江日报全媒体运营，负责视频策划、拍摄、剪辑、发布与数据复盘，也写过公众号推文。做过百万+播放的短视频，熟悉从创意到落地的完整流程。",
   skills: [
     "视频策划",
@@ -75,7 +67,6 @@ window.PORTFOLIO_DATA = {
     { icon: "message-circle", label: "微信", value: "待补充" },
     { icon: "map-pin", label: "坐标", value: "待补充" }
   ],
-  footerName: "杨鹏 · 新媒体运营",
   workGroups: [
     { id: "high", label: "高质视频", note: "" },
     { id: "feed", label: "信息流视频", note: "" },

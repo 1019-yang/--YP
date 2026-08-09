@@ -282,18 +282,18 @@ h2 {
   grid-template-columns: 1.06fr 0.94fr;
   gap: 72px;
   align-items: center;
-  padding-top: 128px;
-  padding-bottom: 96px;
+  padding-top: 150px;
+  padding-bottom: 130px;
 }
 
 .hero-copy h1 {
-  font-size: 66px;
+  font-size: 72px;
   margin-bottom: 26px;
 }
 
 .hero-sub {
   color: var(--muted);
-  font-size: 18px;
+  font-size: 19px;
   max-width: 560px;
   margin-bottom: 38px;
 }
@@ -819,9 +819,7 @@ h2 {
   max-width: 1180px;
   margin: 0 auto;
   padding: 30px 28px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  text-align: center;
   color: var(--muted);
   font-size: 13px;
 }
