@@ -300,14 +300,8 @@
         figure.classList.remove("is-hidden");
         syncMaskedHeading();
         if (video) video.play().catch(function () {});
-        swapTimer = window.setTimeout(function () {
-          name.innerHTML =
-            'YANG PENG <span class="hero-dot-inline">·</span> 作品集';
-        }, 520);
       } else {
         window.clearTimeout(swapTimer);
-        name.innerHTML = "YANG PENG";
-        void name.offsetWidth;
         hero.classList.remove("is-expanded");
         figure.classList.add("is-hidden");
         if (video) video.pause();
