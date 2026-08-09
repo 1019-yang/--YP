@@ -318,8 +318,19 @@ h2 {
   font-weight: 800;
   letter-spacing: 0;
   color: var(--red);
+  animation: hero-float 8s ease-in-out infinite alternate;
+  will-change: transform;
   transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
     color 0.4s ease, opacity 0.3s ease;
+}
+
+@keyframes hero-float {
+  from {
+    transform: translateY(calc(-50% - 6px));
+  }
+  to {
+    transform: translateY(calc(-50% + 6px));
+  }
 }
 
 .masked-heading {
@@ -409,10 +420,16 @@ h2 {
 .hero.is-expanded .hero-name {
   transform: translate3d(0, -50%, 0) translateY(-320px) scale(0.16);
   color: var(--text);
+  animation: none;
 }
 
 .hero.is-expanded .hero-meta {
   transform: translateX(155px);
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: 0;
+  line-height: 24px;
 }
 
 .hero.is-expanded .hero-figure {
@@ -423,7 +440,7 @@ h2 {
 
 .hero-meta {
   transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.3s ease;
+    opacity 0.3s ease, font-size 0.4s ease, color 0.4s ease;
   will-change: transform;
 }
 
@@ -1077,6 +1094,10 @@ h2 {
     opacity: 1;
     transform: none;
     transition: none;
+    animation: none;
+  }
+
+  .hero-name {
     animation: none;
   }
 }
