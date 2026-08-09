@@ -285,6 +285,18 @@
     });
   }
 
+  function bindHeroImageToggle() {
+    var button = document.querySelector(".hero-image-toggle");
+    var figure = document.querySelector(".hero-figure");
+    if (!button || !figure) return;
+    button.addEventListener("click", function () {
+      var hidden = figure.classList.toggle("is-hidden");
+      button.setAttribute("aria-expanded", String(!hidden));
+      var label = button.querySelector("span");
+      if (label) label.textContent = hidden ? "查看形象照" : "隐藏形象照";
+    });
+  }
+
   function bindLightbox() {
     var lightbox = document.getElementById("lightbox");
     var image = document.getElementById("lightbox-image");
@@ -420,6 +432,7 @@
   refreshIcons();
   bindGroupTabs();
   enableCarouselDrag();
+  bindHeroImageToggle();
   bindLightbox();
   bindTheme();
   bindNav();
