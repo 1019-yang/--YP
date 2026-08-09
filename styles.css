@@ -300,14 +300,11 @@ h2 {
 }
 
 .hero-main {
-  display: grid;
-  grid-template-columns: 1.08fr 0.92fr;
-  gap: 56px;
-  align-items: start;
+  display: block;
 }
 
 .hero-main h1 {
-  font-size: 92px;
+  font-size: 110px;
   line-height: 1.04;
   font-weight: 800;
   letter-spacing: 0;
@@ -320,9 +317,8 @@ h2 {
 
 .hero-figure {
   position: relative;
-  justify-self: end;
-  width: 100%;
   max-width: 500px;
+  margin-top: 56px;
 }
 
 .hero-figure img {
@@ -340,7 +336,7 @@ h2 {
   align-items: flex-end;
   justify-content: space-between;
   gap: 40px;
-  margin-top: 64px;
+  margin-top: 56px;
 }
 
 .hero-actions {
@@ -970,18 +966,13 @@ h2 {
     padding-top: 48px;
   }
 
-  .hero-main {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-
   .hero-main h1 {
-    font-size: 64px;
+    font-size: 76px;
   }
 
   .hero-figure {
-    max-width: 420px;
-    justify-self: start;
+    max-width: 440px;
+    margin-top: 40px;
   }
 
   .hero-bottomline {
@@ -1027,7 +1018,11 @@ h2 {
   }
 
   .hero-main h1 {
-    font-size: 46px;
+    font-size: 52px;
+  }
+
+  .hero-figure {
+    max-width: 100%;
   }
 
   .hero-topline {
@@ -1084,7 +1079,7 @@ h2 {
 
 @media (max-width: 420px) {
   .hero-main h1 {
-    font-size: 38px;
+    font-size: 42px;
   }
 
   .hero-actions .btn {
