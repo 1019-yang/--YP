@@ -6,7 +6,7 @@
   <meta name="description" content="杨鹏 · 新媒体运营个人作品集与简历">
   <title>杨鹏 · 新媒体运营</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20260809b">
+  <link rel="stylesheet" href="styles.css?v=20260809c">
   <script src="assets/lucide.min.js"></script>
 </head>
 <body>
@@ -47,10 +47,21 @@
 
   <main id="top">
     <section class="hero section">
-      <div class="hero-copy reveal">
-        <p class="eyebrow" data-field="eyebrow"></p>
-        <h1 data-field="headline"></h1>
-        <p class="hero-sub" data-field="tagline"></p>
+      <div class="hero-topline reveal">
+        <span class="hero-meta" data-field="eyebrow"></span>
+        <span class="hero-en" data-field="enName"></span>
+      </div>
+      <div class="hero-main">
+        <h1>
+          <span data-field="heroLine1"></span><br>
+          <span class="accent" data-field="heroLine2"></span><br>
+          <span data-field="heroLine3"></span>
+        </h1>
+        <figure class="hero-figure reveal reveal-delay-1">
+          <img id="hero-image" src="" alt="" width="1080" height="1350" loading="eager">
+        </figure>
+      </div>
+      <div class="hero-bottomline reveal">
         <div class="hero-actions">
           <a class="btn btn-primary" href="#works">
             <span data-field="worksCta"></span>
@@ -60,10 +71,8 @@
             <span data-field="contactCta"></span>
           </a>
         </div>
+        <p class="hero-quote" data-field="heroQuote"></p>
       </div>
-      <figure class="hero-figure reveal reveal-delay-1">
-        <img id="hero-image" src="" alt="" width="1080" height="1350" loading="eager">
-      </figure>
     </section>
 
     <section class="works section" id="works">
@@ -147,7 +156,7 @@
     </figure>
   </div>
 
-  <script src="data.js?v=20260809b"></script>
-  <script src="main.js?v=20260809b"></script>
+  <script src="data.js?v=20260809c"></script>
+  <script src="main.js?v=20260809c"></script>
 </body>
 </html>
