@@ -280,6 +280,8 @@ h2 {
 
 /* Hero */
 .hero {
+  position: relative;
+  overflow-x: hidden;
   padding-top: 56px;
   padding-bottom: 64px;
 }
@@ -300,29 +302,60 @@ h2 {
 }
 
 .hero-main {
-  display: block;
+  position: relative;
+  min-height: 540px;
 }
 
 .hero-name {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0;
   font-size: 150px;
   line-height: 0.95;
   font-weight: 800;
   letter-spacing: 0;
-  margin: 0;
   color: var(--red);
+  transition: top 0.5s ease, transform 0.5s ease, font-size 0.5s ease,
+    color 0.5s ease, left 0.5s ease;
 }
 
 .hero-figure {
-  position: relative;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translate(120%, -50%);
+  opacity: 0;
+  pointer-events: none;
+  width: 46%;
   max-width: 500px;
-  margin-top: 44px;
   transition: transform 0.55s ease, opacity 0.55s ease;
 }
 
-.hero-figure.is-hidden {
+.hero.is-expanded .hero-name {
+  top: -61px;
+  left: 0;
+  transform: none;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.hero.is-expanded .hero-meta {
   opacity: 0;
-  transform: translateX(120%);
   pointer-events: none;
+}
+
+.hero.is-expanded .hero-figure {
+  transform: translate(0, -50%);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.hero-meta {
+  transition: opacity 0.3s ease;
 }
 
 .hero-figure img {
@@ -974,9 +1007,13 @@ h2 {
     font-size: 96px;
   }
 
+  .hero-main {
+    min-height: 480px;
+  }
+
   .hero-figure {
+    width: 50%;
     max-width: 440px;
-    margin-top: 40px;
   }
 
   .hero-bottomline {
@@ -1025,12 +1062,21 @@ h2 {
     font-size: 64px;
   }
 
+  .hero-main {
+    min-height: 420px;
+  }
+
   .hero-figure {
+    width: 70%;
     max-width: 100%;
   }
 
   .hero-topline {
     margin-bottom: 28px;
+  }
+
+  .hero.is-expanded .hero-name {
+    top: -49px;
   }
 
   h2 {
@@ -1083,7 +1129,11 @@ h2 {
 
 @media (max-width: 420px) {
   .hero-name {
-    font-size: 54px;
+    font-size: 46px;
+  }
+
+  .hero-main {
+    min-height: 360px;
   }
 
   .hero-actions .btn {
