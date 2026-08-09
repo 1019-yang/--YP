@@ -314,6 +314,20 @@
     });
   }
 
+  function autoPlayHeroOnce() {
+    var reduce =
+      window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) return;
+    var button = document.querySelector(".hero-image-toggle");
+    if (!button) return;
+    window.setTimeout(function () {
+      var hero = document.querySelector(".hero");
+      if (!hero || hero.classList.contains("is-expanded")) return;
+      button.click();
+    }, 600);
+  }
+
   function syncHeroNameMask() {
     var root = document.getElementById("hero-name-mask");
     var clip = document.getElementById("hero-name-mask-clip");
@@ -441,9 +455,9 @@
     var density = 3;
     var color = "#ffffff";
     var highlightColor = "#d4af6d";
-    var scatter = 160;
-    var gatherDuration = 1400;
-    var stagger = 300;
+    var scatter = 120;
+    var gatherDuration = 800;
+    var stagger = 150;
     var pointerRepel = 30;
     var repelRadius = 140;
     var idleDrift = 0.6;
@@ -977,6 +991,7 @@
   enableCarouselDrag();
   initMagicBento();
   bindHeroImageToggle();
+  autoPlayHeroOnce();
   initParticleText();
   syncHeroNameMask();
   var nameMaskRoot = document.getElementById("hero-name-mask");

@@ -419,8 +419,8 @@ h2 {
   opacity: 1;
   pointer-events: none;
   transform-origin: left center;
-  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.45s ease;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.35s ease;
 }
 
 .hero.is-expanded .hero-name-mask {
@@ -489,7 +489,7 @@ h2 {
   isolation: isolate;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.1s ease;
 }
 
 .hero.is-expanded .particle-text {
@@ -570,7 +570,7 @@ h2 {
   opacity: 0;
   width: 0;
   overflow: hidden;
-  transition: opacity 0.4s ease 0.45s;
+  transition: opacity 0.3s ease 0.2s;
 }
 
 .hero.is-expanded .hero-dot {
