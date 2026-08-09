@@ -295,7 +295,9 @@
     button.addEventListener("click", function () {
       var expanded = hero.classList.toggle("is-expanded");
       figure.classList.toggle("is-hidden", !expanded);
-      name.textContent = expanded ? "YANG PENG · 作品集" : "YANG PENG";
+      name.innerHTML = expanded
+        ? 'YANG PENG <span class="hero-dot-inline">·</span> 作品集'
+        : "YANG PENG";
       if (expanded) {
         syncMaskedHeading();
         if (video) video.play().catch(function () {});

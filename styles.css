@@ -338,6 +338,10 @@ h2 {
 .hero.is-expanded .masked-heading {
   opacity: 1;
   pointer-events: none;
+  font-size: 72px;
+  transform: translateY(-50%) scale(0.78);
+  transform-origin: left center;
+  max-width: 52%;
 }
 
 .masked-heading__measure {
@@ -424,6 +428,15 @@ h2 {
 
 .hero-meta {
   transition: opacity 0.3s ease;
+}
+
+.hero-dot-inline {
+  opacity: 0;
+  transition: opacity 0.4s ease 0.45s;
+}
+
+.hero.is-expanded .hero-dot-inline {
+  opacity: 1;
 }
 
 .hero-figure img {
@@ -1079,6 +1092,10 @@ h2 {
     font-size: 96px;
   }
 
+  .hero.is-expanded .masked-heading {
+    font-size: 56px;
+  }
+
   .hero-main {
     min-height: 480px;
   }
@@ -1136,6 +1153,10 @@ h2 {
 
   .masked-heading {
     font-size: 64px;
+  }
+
+  .hero.is-expanded .masked-heading {
+    font-size: 44px;
   }
 
   .hero-main {
@@ -1210,6 +1231,10 @@ h2 {
 
   .masked-heading {
     font-size: 46px;
+  }
+
+  .hero.is-expanded .masked-heading {
+    font-size: 38px;
   }
 
   .hero-main {
