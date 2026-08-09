@@ -1,6 +1,7 @@
 window.PORTFOLIO_DATA = {
   name: "杨鹏",
   enName: "YANG PENG",
+  heroGreeting: "你好，\n很高兴认识你！",
   eyebrow: "作品集",
   heroQuote: "能写脚本 · 能拍能剪 · 会用数据复盘",
   tagline: "广告学专业，2026 届本科。做过健康科技公司新媒体运营和长江日报全媒体运营，负责视频策划、拍摄、剪辑、发布与数据复盘，也写过公众号推文。",

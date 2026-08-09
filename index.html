@@ -54,20 +54,25 @@
       </div>
       <div class="hero-main">
         <h1 class="hero-name" data-field="enName"></h1>
-        <div class="masked-heading" id="masked-heading" aria-hidden="true">
-          <span class="masked-heading__measure">
-            <span class="masked-heading__word">YANG<i class="masked-heading__baseline"></i></span><span class="masked-heading__word">PENG<i class="masked-heading__baseline"></i></span>
+        <div class="hero-name-mask" id="hero-name-mask" aria-hidden="true">
+          <span class="hero-name-mask__measure">
+            <span class="hero-name-mask__word">YANG<i class="hero-name-mask__baseline"></i></span><span class="hero-name-mask__word">PENG<i class="hero-name-mask__baseline"></i></span>
           </span>
-          <svg class="masked-heading__defs" aria-hidden="true" focusable="false">
+          <svg class="hero-name-mask__defs" aria-hidden="true" focusable="false">
             <defs>
-              <clipPath id="hero-mask" clipPathUnits="userSpaceOnUse"></clipPath>
+              <clipPath id="hero-name-mask-clip" clipPathUnits="userSpaceOnUse"></clipPath>
             </defs>
           </svg>
-          <span class="masked-heading__reveal">
-            <span class="masked-heading__clip">
-              <video class="masked-heading__source" src="assets/videos/hero-bg.mp4" poster="assets/videos/hero-bg-poster.jpg" preload="metadata" muted loop playsinline></video>
+          <span class="hero-name-mask__reveal">
+            <span class="hero-name-mask__clip">
+              <video class="hero-name-mask__source" src="assets/videos/hero-bg.mp4" poster="assets/videos/hero-bg-poster.jpg" preload="metadata" muted loop playsinline></video>
             </span>
           </span>
+        </div>
+        <div class="particle-text" id="particle-text" aria-label="你好，很高兴认识你！">
+          <video class="particle-text__bg" src="assets/videos/hero-bg.mp4" poster="assets/videos/hero-bg-poster.jpg" muted loop playsinline></video>
+          <canvas class="particle-text__canvas" aria-hidden="true"></canvas>
+          <span class="particle-text__sr">你好，很高兴认识你！</span>
         </div>
         <figure class="hero-figure is-hidden">
         <img id="hero-image" src="assets/hero-portrait.jpg" alt="杨鹏形象照" width="1080" height="1350" loading="eager">
