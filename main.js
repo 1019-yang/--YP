@@ -287,17 +287,19 @@
 
   function bindHeroImageToggle() {
     var button = document.querySelector(".hero-image-toggle");
-    var hero = document.querySelector(".hero");
-    var figure = document.querySelector(".hero-figure");
     var name = document.querySelector(".hero-name");
-    if (!button || !hero || !figure || !name) return;
+    if (!button || !name) return;
     button.addEventListener("click", function () {
-      var expanded = hero.classList.toggle("is-expanded");
-      figure.classList.toggle("is-hidden", !expanded);
-      name.textContent = expanded ? "YANG PENG · 作品集" : "YANG PENG";
-      button.setAttribute("aria-expanded", String(expanded));
+      var masked = name.classList.toggle("masked");
+      if (masked) {
+        name.style.backgroundImage =
+          "url('" + (data.heroImage || "assets/hero-portrait.jpg") + "')";
+      } else {
+        name.style.backgroundImage = "";
+      }
+      button.setAttribute("aria-expanded", String(masked));
       var label = button.querySelector("span");
-      if (label) label.textContent = expanded ? "隐藏形象照" : "查看形象照";
+      if (label) label.textContent = masked ? "隐藏形象照" : "查看形象照";
     });
   }
 
