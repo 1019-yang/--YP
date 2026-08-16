@@ -68,10 +68,11 @@
     var chipText = isVideo
       ? (work.duration || work.ratio || "视频")
       : work.ratio;
+    var delay = Math.min(index * 45, 300);
 
     return (
       '<article class="work-card ' + work.category + layoutClass + '" data-category="' + work.category +
-      '" data-index="' + index + '" role="button" tabindex="0" aria-label="' + work.title + '">' +
+      '" data-index="' + index + '" style="animation-delay:' + delay + 'ms" role="button" tabindex="0" aria-label="' + work.title + '">' +
       '<div class="work-thumb" ' + thumbStyle + ">" + media +
       '<div class="work-overlay"><span class="work-meta-chip"><i data-lucide="' + chipIcon + '"></i>' +
       chipText + "</span></div></div>" +
@@ -198,7 +199,13 @@
         '<p class="timeline-period">' + item.period + "</p>" +
         "<h3>" + item.role + "</h3>" +
         '<p class="timeline-org">' + item.org + "</p>";
-      if (item.desc) {
+      if (item.bullets && item.bullets.length) {
+        html += '<ul class="timeline-bullets">';
+        item.bullets.forEach(function (bullet) {
+          html += "<li>" + bullet + "</li>";
+        });
+        html += "</ul>";
+      } else if (item.desc) {
         html += '<p class="timeline-desc">' + item.desc + "</p>";
       }
       html += "</li>";
@@ -208,8 +215,10 @@
 
   function renderTimelines() {
     var education = document.getElementById("education-timeline");
+    var campus = document.getElementById("campus-timeline");
     var work = document.getElementById("work-timeline");
     if (education) education.innerHTML = timelineHtml(data.education);
+    if (campus) campus.innerHTML = timelineHtml(data.campus);
     if (work) work.innerHTML = timelineHtml(data.work);
   }
 
@@ -235,6 +244,75 @@
         );
       })
       .join("");
+  }
+
+  function renderOverview() {
+    var stats = document.getElementById("overview-stats");
+    if (stats) {
+      var statItems = [
+        { label: "视频作品", value: String(data.works.length) },
+        { label: "工作经历", value: String(data.work.length) },
+        { label: "荣誉奖项", value: String((data.honors || []).length) },
+        { label: "核心能力", value: String((data.skills || []).length) }
+      ];
+      stats.innerHTML = statItems
+        .map(function (item) {
+          return (
+            '<div class="overview-stat"><strong>' + item.value + "</strong><span>" +
+            item.label + "</span></div>"
+          );
+        })
+        .join("");
+    }
+
+    var worksEl = document.getElementById("overview-works");
+    if (worksEl) {
+      worksEl.innerHTML = (data.works || [])
+        .slice(0, 4)
+        .map(function (work) {
+          return (
+            '<button class="overview-work" type="button" data-panel-target="works" aria-label="查看作品：' +
+            work.title + '">' +
+            '<span class="overview-work__thumb" style="background-image:url(\'' + work.poster + '\')"></span>' +
+            '<span class="overview-work__title">' + work.title + "</span>" +
+            '<span class="overview-work__tag">' + (work.year || "") + "</span></button>"
+          );
+        })
+        .join("");
+    }
+
+    var expEl = document.getElementById("overview-experience");
+    if (expEl) {
+      var previews = [];
+      var edu = (data.education || [])[0];
+      if (edu) previews.push({ period: edu.period, role: edu.role, org: edu.org });
+      (data.work || []).forEach(function (item) {
+        previews.push({ period: item.period, role: item.role, org: item.org });
+      });
+      expEl.innerHTML = previews
+        .slice(0, 3)
+        .map(function (item) {
+          return (
+            '<div class="overview-exp-item">' +
+            '<span class="overview-exp-period">' + item.period + "</span>" +
+            "<strong>" + item.role + "</strong>" +
+            "<span>" + item.org + "</span></div>"
+          );
+        })
+        .join("");
+    }
+
+    var honorsEl = document.getElementById("overview-honors");
+    if (honorsEl) {
+      honorsEl.innerHTML = (data.honors || [])
+        .map(function (honor) {
+          return "<li>" + honor + "</li>";
+        })
+        .join("");
+    }
+
+    var countEl = document.getElementById("topbar-works-count");
+    if (countEl) countEl.textContent = String((data.works || []).length);
   }
 
   function refreshIcons() {
@@ -265,24 +343,82 @@
     });
   }
 
-  function bindNav() {
-    var header = document.getElementById("site-header");
+  function bindWorkbenchNav() {
+    var sidebar = document.getElementById("sidebar");
     var toggle = document.querySelector(".nav-toggle");
-    if (!header || !toggle) return;
-    toggle.addEventListener("click", function () {
-      var open = header.classList.toggle("nav-open");
-      toggle.setAttribute("aria-expanded", String(open));
-      toggle.innerHTML = open ? '<i data-lucide="x"></i>' : '<i data-lucide="menu"></i>';
-      refreshIcons();
-    });
-    header.querySelectorAll(".mobile-menu a").forEach(function (link) {
-      link.addEventListener("click", function () {
-        header.classList.remove("nav-open");
+    var backdrop = document.getElementById("sidebar-backdrop");
+    var panels = document.querySelectorAll(".workbench-panel");
+    var navItems = document.querySelectorAll(".nav-item");
+    var titles = {
+      overview: "概览",
+      works: "作品",
+      experience: "经历",
+      skills: "技能与荣誉",
+      contact: "联系"
+    };
+
+    function closeSidebar() {
+      if (!sidebar) return;
+      sidebar.classList.remove("open");
+      if (backdrop) backdrop.classList.remove("show");
+      if (toggle) {
         toggle.setAttribute("aria-expanded", "false");
         toggle.innerHTML = '<i data-lucide="menu"></i>';
-        refreshIcons();
+      }
+      refreshIcons();
+    }
+
+    function switchPanel(target) {
+      if (!panels.length) return;
+      Array.prototype.forEach.call(panels, function (panel) {
+        panel.classList.toggle("active", panel.getAttribute("data-panel") === target);
       });
+      Array.prototype.forEach.call(navItems, function (item) {
+        item.classList.toggle("active", item.getAttribute("data-panel-target") === target);
+      });
+      var title = document.getElementById("topbar-title");
+      if (title) title.textContent = titles[target] || "概览";
+      if (window.location.hash !== "#" + target) {
+        window.history.replaceState(null, "", "#" + target);
+      }
+      closeSidebar();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    if (toggle) {
+      toggle.addEventListener("click", function () {
+        if (!sidebar) return;
+        if (sidebar.classList.contains("open")) {
+          closeSidebar();
+        } else {
+          sidebar.classList.add("open");
+          if (backdrop) backdrop.classList.add("show");
+          toggle.setAttribute("aria-expanded", "true");
+          toggle.innerHTML = '<i data-lucide="x"></i>';
+          refreshIcons();
+        }
+      });
+    }
+    if (backdrop) {
+      backdrop.addEventListener("click", closeSidebar);
+    }
+    document.addEventListener("click", function (event) {
+      var trigger = event.target.closest("[data-panel-target]");
+      if (!trigger) return;
+      var target = trigger.getAttribute("data-panel-target");
+      var panel = document.querySelector('.workbench-panel[data-panel="' + target + '"]');
+      if (panel) {
+        switchPanel(target);
+      }
     });
+
+    var initial = window.location.hash.replace("#", "");
+    if (
+      initial &&
+      document.querySelector('.workbench-panel[data-panel="' + initial + '"]')
+    ) {
+      switchPanel(initial);
+    }
   }
 
   function bindHeroImageToggle() {
@@ -319,6 +455,8 @@
       window.matchMedia &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduce) return;
+    var overview = document.getElementById("overview");
+    if (overview && !overview.classList.contains("active")) return;
     var button = document.querySelector(".hero-image-toggle");
     if (!button) return;
     window.setTimeout(function () {
@@ -976,6 +1114,24 @@
     });
   }
 
+  function bindScrollProgress() {
+    var bar = document.getElementById("scroll-progress");
+    if (!bar) return;
+    var ticking = false;
+    function update() {
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      var progress = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+      bar.style.transform = "scaleX(" + progress + ")";
+      ticking = false;
+    }
+    window.addEventListener("scroll", function () {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(update);
+    });
+    update();
+  }
+
   function setYear() {
     var el = document.getElementById("current-year");
     if (el) el.textContent = new Date().getFullYear();
@@ -986,6 +1142,7 @@
   renderTimelines();
   renderSkills();
   renderContact();
+  renderOverview();
   refreshIcons();
   bindGroupTabs();
   enableCarouselDrag();
@@ -1003,9 +1160,9 @@
   if (nameMaskVideo) nameMaskVideo.play().catch(function () {});
   bindLightbox();
   bindTheme();
-  bindNav();
+  bindWorkbenchNav();
   bindReveal();
-  bindNavHighlight();
   bindBackTop();
+  bindScrollProgress();
   setYear();
 })();

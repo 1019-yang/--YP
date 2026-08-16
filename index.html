@@ -4,160 +4,236 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="杨鹏 · 新媒体运营个人作品集与简历">
-  <title>杨鹏 · 新媒体运营</title>
+  <meta name="theme-color" content="#0b0b0c">
+  <title>杨鹏 · 新媒体运营工作台</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20260809m">
+  <link rel="stylesheet" href="styles.css?v=20260817a">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <script src="assets/lucide.min.js"></script>
 </head>
 <body>
-  <header class="site-header" id="site-header">
-    <div class="nav-inner">
-      <a class="brand" href="#top" aria-label="回到顶部">
-        <span data-field="name"></span>
-        <span class="brand-en" data-field="enName"></span>
-      </a>
-      <nav class="nav-links" aria-label="主导航">
-        <a href="#works">作品</a>
-        <a href="#experience">经历</a>
-        <a href="#about">关于</a>
-        <a href="#contact">联系</a>
+  <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-head">
+        <a class="sidebar-brand" href="#overview" data-panel-target="overview" aria-label="返回概览">
+          <span class="sidebar-brand__mark">YP</span>
+          <span class="sidebar-brand__text">
+            <strong>YANG PENG</strong>
+            <small>新媒体运营 · 作品集</small>
+          </span>
+        </a>
+      </div>
+
+      <div class="sidebar-profile">
+        <img src="assets/hero-portrait.jpg" alt="杨鹏形象照">
+        <strong class="sidebar-profile__name" data-field="name"></strong>
+        <span class="sidebar-profile__tagline" data-field="tagline"></span>
+        <span class="status-pill"><i data-lucide="circle-dot"></i>求职中</span>
+      </div>
+
+      <nav class="sidebar-nav" aria-label="工作台导航">
+        <button class="nav-item active" type="button" data-panel-target="overview">
+          <i data-lucide="layout-dashboard"></i>
+          <span>概览</span>
+        </button>
+        <button class="nav-item" type="button" data-panel-target="works">
+          <i data-lucide="clapperboard"></i>
+          <span>作品</span>
+        </button>
+        <button class="nav-item" type="button" data-panel-target="experience">
+          <i data-lucide="briefcase"></i>
+          <span>经历</span>
+        </button>
+        <button class="nav-item" type="button" data-panel-target="skills">
+          <i data-lucide="sparkles"></i>
+          <span>技能与荣誉</span>
+        </button>
+        <button class="nav-item" type="button" data-panel-target="contact">
+          <i data-lucide="mail"></i>
+          <span>联系</span>
+        </button>
       </nav>
-      <div class="nav-tools">
+
+      <div class="sidebar-foot">
+        <a class="btn btn-primary sidebar-download" href="assets/resume.pdf" download>
+          <i data-lucide="download"></i>
+          <span>下载简历</span>
+        </a>
         <button class="icon-btn theme-toggle" type="button" aria-label="切换明暗模式">
           <i data-lucide="sun" class="icon-sun"></i>
           <i data-lucide="moon" class="icon-moon"></i>
         </button>
-        <a class="btn btn-ghost btn-download" href="assets/resume.pdf" download>
-          <i data-lucide="download"></i>
-          <span>下载简历</span>
-        </a>
-        <button class="icon-btn nav-toggle" type="button" aria-label="打开菜单" aria-expanded="false">
+      </div>
+    </aside>
+    <div class="sidebar-backdrop" id="sidebar-backdrop" aria-hidden="true"></div>
+
+    <div class="workbench">
+      <header class="workbench-topbar">
+        <button class="icon-btn nav-toggle" type="button" aria-label="打开工作台菜单" aria-expanded="false">
           <i data-lucide="menu"></i>
         </button>
-      </div>
+        <div class="topbar-heading">
+          <span class="topbar-kicker" id="topbar-kicker">WORKBENCH</span>
+          <h1 id="topbar-title">概览</h1>
+        </div>
+        <div class="topbar-meta">
+          <span class="topbar-pill"><i data-lucide="video"></i><span id="topbar-works-count"></span> 支视频</span>
+          <span class="topbar-pill"><i data-lucide="eye"></i>100万+ 内容观看</span>
+        </div>
+      </header>
+
+      <main class="workbench-main" id="top">
+        <section class="workbench-panel active" data-panel="overview" id="overview">
+          <section class="hero section">
+            <div class="hero-topline reveal">
+              <span class="hero-meta" data-field="eyebrow"></span>
+              <span class="hero-dot" aria-hidden="true">·</span>
+              <span class="hero-en">PORTFOLIO</span>
+            </div>
+            <div class="hero-main">
+              <h1 class="hero-name" data-field="enName"></h1>
+              <div class="hero-name-mask" id="hero-name-mask" aria-hidden="true">
+                <span class="hero-name-mask__measure">
+                  <span class="hero-name-mask__word">YANG<i class="hero-name-mask__baseline"></i></span><span class="hero-name-mask__word">PENG<i class="hero-name-mask__baseline"></i></span>
+                </span>
+                <svg class="hero-name-mask__defs" aria-hidden="true" focusable="false">
+                  <defs>
+                    <clipPath id="hero-name-mask-clip" clipPathUnits="userSpaceOnUse"></clipPath>
+                  </defs>
+                </svg>
+                <span class="hero-name-mask__reveal">
+                  <span class="hero-name-mask__clip">
+                    <video class="hero-name-mask__source" src="assets/videos/hero-bg.mp4" poster="assets/videos/hero-bg-poster.jpg" preload="metadata" muted loop playsinline></video>
+                  </span>
+                </span>
+              </div>
+              <div class="particle-text" id="particle-text" aria-label="你好，很高兴认识你！">
+                <video class="particle-text__bg" src="assets/videos/hero-bg.mp4" poster="assets/videos/hero-bg-poster.jpg" muted loop playsinline></video>
+                <canvas class="particle-text__canvas" aria-hidden="true"></canvas>
+                <span class="particle-text__sr">你好，很高兴认识你！</span>
+              </div>
+              <figure class="hero-figure is-hidden">
+                <img id="hero-image" src="assets/hero-portrait.jpg" alt="杨鹏形象照" width="1080" height="1350" loading="eager">
+              </figure>
+            </div>
+            <div class="hero-bottomline reveal">
+              <div class="hero-actions">
+                <button class="btn btn-ghost hero-image-toggle" type="button" aria-expanded="false">
+                  <i data-lucide="image"></i>
+                  <span>查看形象照</span>
+                </button>
+                <button class="btn btn-primary" type="button" data-panel-target="works">
+                  <span data-field="worksCta"></span>
+                  <i data-lucide="arrow-right"></i>
+                </button>
+                <button class="btn btn-ghost" type="button" data-panel-target="contact">
+                  <span data-field="contactCta"></span>
+                </button>
+              </div>
+              <p class="hero-quote" data-field="heroQuote"></p>
+            </div>
+          </section>
+
+          <div class="overview-grid">
+            <div class="overview-card overview-card--stats" id="overview-stats"></div>
+            <article class="overview-card overview-card--recent">
+              <div class="overview-card-head">
+                <h3>最近作品</h3>
+                <button class="text-btn" type="button" data-panel-target="works">全部作品 <i data-lucide="arrow-right"></i></button>
+              </div>
+              <div class="overview-works" id="overview-works"></div>
+            </article>
+            <article class="overview-card overview-card--timeline">
+              <div class="overview-card-head">
+                <h3>经历速览</h3>
+                <button class="text-btn" type="button" data-panel-target="experience">查看经历 <i data-lucide="arrow-right"></i></button>
+              </div>
+              <div class="overview-experience" id="overview-experience"></div>
+            </article>
+            <article class="overview-card overview-card--honors">
+              <div class="overview-card-head">
+                <h3>荣誉与获奖</h3>
+              </div>
+              <ul class="honor-list" id="overview-honors"></ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="workbench-panel" data-panel="works" id="works">
+          <section class="works section">
+            <div class="section-head reveal">
+              <div>
+                <h2>精选作品</h2>
+              </div>
+            </div>
+            <div class="tabs reveal" id="work-group-tabs" role="tablist" aria-label="作品分组"></div>
+            <div class="works-groups" id="works-groups"></div>
+          </section>
+        </section>
+
+        <section class="workbench-panel" data-panel="experience" id="experience">
+          <section class="experience section">
+            <div class="section-head reveal">
+              <div>
+                <h2>经历</h2>
+              </div>
+            </div>
+            <div class="timeline-block reveal">
+              <h3 class="timeline-title">教育经历</h3>
+              <ol class="timeline" id="education-timeline"></ol>
+            </div>
+            <div class="timeline-block reveal reveal-delay-1">
+              <h3 class="timeline-title">在校经历</h3>
+              <ol class="timeline" id="campus-timeline"></ol>
+            </div>
+            <div class="timeline-block reveal reveal-delay-2">
+              <h3 class="timeline-title">工作经历</h3>
+              <ol class="timeline" id="work-timeline"></ol>
+            </div>
+          </section>
+        </section>
+
+        <section class="workbench-panel" data-panel="skills" id="skills">
+          <section class="about section">
+            <div class="about-copy reveal">
+              <h2>关于我</h2>
+              <p class="about-bio" data-field="bio"></p>
+            </div>
+            <div class="skills reveal reveal-delay-1">
+              <p class="skills-label">常用工具与能力</p>
+              <ul class="skill-list" id="skill-list"></ul>
+              <p class="skills-extra" data-field="skillsNote"></p>
+            </div>
+          </section>
+        </section>
+
+        <section class="workbench-panel" data-panel="contact" id="contact">
+          <section class="contact section">
+            <div class="contact-copy reveal">
+              <h2>联系我</h2>
+              <p data-field="contactIntro"></p>
+            </div>
+            <div class="contact-panel reveal reveal-delay-1">
+              <ul class="contact-list" id="contact-list"></ul>
+              <a class="btn btn-primary contact-cta" data-field="contactCtaLink" href="mailto:">
+                <i data-lucide="mail"></i>
+                <span data-field="contactCta"></span>
+              </a>
+            </div>
+          </section>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <div class="footer-inner">
+          <p class="footer-year">© <span id="current-year"></span> · YANG PENG</p>
+        </div>
+      </footer>
     </div>
-    <div class="mobile-menu" id="mobile-menu">
-      <a href="#works">作品</a>
-      <a href="#experience">经历</a>
-      <a href="#about">关于</a>
-      <a href="#contact">联系</a>
-      <a class="btn btn-primary" href="assets/resume.pdf" download>下载简历</a>
-    </div>
-  </header>
-
-  <main id="top">
-    <section class="hero section">
-      <div class="hero-topline reveal">
-        <span class="hero-meta" data-field="eyebrow"></span>
-        <span class="hero-dot" aria-hidden="true">·</span>
-        <span class="hero-en">PORTFOLIO</span>
-      </div>
-      <div class="hero-main">
-        <h1 class="hero-name" data-field="enName"></h1>
-        <div class="hero-name-mask" id="hero-name-mask" aria-hidden="true">
-          <span class="hero-name-mask__measure">
-            <span class="hero-name-mask__word">YANG<i class="hero-name-mask__baseline"></i></span><span class="hero-name-mask__word">PENG<i class="hero-name-mask__baseline"></i></span>
-          </span>
-          <svg class="hero-name-mask__defs" aria-hidden="true" focusable="false">
-            <defs>
-              <clipPath id="hero-name-mask-clip" clipPathUnits="userSpaceOnUse"></clipPath>
-            </defs>
-          </svg>
-          <span class="hero-name-mask__reveal">
-            <span class="hero-name-mask__clip">
-              <video class="hero-name-mask__source" src="assets/videos/hero-bg.mp4" poster="assets/videos/hero-bg-poster.jpg" preload="metadata" muted loop playsinline></video>
-            </span>
-          </span>
-        </div>
-        <div class="particle-text" id="particle-text" aria-label="你好，很高兴认识你！">
-          <video class="particle-text__bg" src="assets/videos/hero-bg.mp4" poster="assets/videos/hero-bg-poster.jpg" muted loop playsinline></video>
-          <canvas class="particle-text__canvas" aria-hidden="true"></canvas>
-          <span class="particle-text__sr">你好，很高兴认识你！</span>
-        </div>
-        <figure class="hero-figure is-hidden">
-        <img id="hero-image" src="assets/hero-portrait.jpg" alt="杨鹏形象照" width="1080" height="1350" loading="eager">
-        </figure>
-      </div>
-      <div class="hero-bottomline reveal">
-        <div class="hero-actions">
-          <button class="btn btn-ghost hero-image-toggle" type="button" aria-expanded="false">
-            <i data-lucide="image"></i>
-            <span>查看形象照</span>
-          </button>
-          <a class="btn btn-primary" href="#works">
-            <span data-field="worksCta"></span>
-            <i data-lucide="arrow-right"></i>
-          </a>
-          <a class="btn btn-ghost" href="#contact">
-            <span data-field="contactCta"></span>
-          </a>
-        </div>
-        <p class="hero-quote" data-field="heroQuote"></p>
-      </div>
-    </section>
-
-    <section class="works section" id="works">
-      <div class="section-head reveal">
-        <div>
-          <p class="eyebrow">SELECTED WORKS</p>
-          <h2>精选作品</h2>
-        </div>
-      </div>
-      <div class="tabs reveal" id="work-group-tabs" role="tablist" aria-label="作品分组"></div>
-      <div class="works-groups" id="works-groups"></div>
-    </section>
-
-    <section class="experience section" id="experience">
-      <div class="section-head reveal">
-        <div>
-          <p class="eyebrow">EXPERIENCE</p>
-          <h2>经历</h2>
-        </div>
-      </div>
-      <div class="timeline-block reveal">
-        <h3 class="timeline-title">教育经历</h3>
-        <ol class="timeline" id="education-timeline"></ol>
-      </div>
-      <div class="timeline-block reveal reveal-delay-1">
-        <h3 class="timeline-title">工作经历</h3>
-        <ol class="timeline" id="work-timeline"></ol>
-      </div>
-    </section>
-
-    <section class="about section" id="about">
-      <div class="about-copy reveal">
-        <p class="eyebrow">ABOUT</p>
-        <h2>关于我</h2>
-        <p class="about-bio" data-field="bio"></p>
-      </div>
-      <div class="skills reveal reveal-delay-1">
-        <p class="skills-label">常用工具与能力</p>
-        <ul class="skill-list" id="skill-list"></ul>
-        <p class="skills-extra" data-field="skillsNote"></p>
-      </div>
-    </section>
-
-    <section class="contact section" id="contact">
-      <div class="contact-copy reveal">
-        <p class="eyebrow">CONTACT</p>
-        <h2>联系我</h2>
-        <p data-field="contactIntro"></p>
-      </div>
-      <div class="contact-panel reveal reveal-delay-1">
-        <ul class="contact-list" id="contact-list"></ul>
-        <a class="btn btn-primary contact-cta" data-field="contactCtaLink" href="mailto:">
-          <i data-lucide="mail"></i>
-          <span data-field="contactCta"></span>
-        </a>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <p class="footer-year">© <span id="current-year"></span></p>
-    </div>
-  </footer>
+  </div>
 
   <button class="icon-btn back-top" type="button" aria-label="回到顶部" id="back-top">
     <i data-lucide="arrow-up"></i>
@@ -177,7 +253,7 @@
     </figure>
   </div>
 
-  <script src="data.js?v=20260809m"></script>
-  <script src="main.js?v=20260809m"></script>
+  <script src="data.js?v=20260817a"></script>
+  <script src="main.js?v=20260817a"></script>
 </body>
 </html>
