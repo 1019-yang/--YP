@@ -247,24 +247,6 @@
   }
 
   function renderOverview() {
-    var stats = document.getElementById("overview-stats");
-    if (stats) {
-      var statItems = [
-        { label: "视频作品", value: String(data.works.length) },
-        { label: "工作经历", value: String(data.work.length) },
-        { label: "荣誉奖项", value: String((data.honors || []).length) },
-        { label: "核心能力", value: String((data.skills || []).length) }
-      ];
-      stats.innerHTML = statItems
-        .map(function (item) {
-          return (
-            '<div class="overview-stat"><strong>' + item.value + "</strong><span>" +
-            item.label + "</span></div>"
-          );
-        })
-        .join("");
-    }
-
     var worksEl = document.getElementById("overview-works");
     if (worksEl) {
       worksEl.innerHTML = (data.works || [])
@@ -315,6 +297,60 @@
     if (countEl) countEl.textContent = String((data.works || []).length);
   }
 
+  function renderProjects() {
+    var grid = document.getElementById("project-grid");
+    if (!grid) return;
+    var projects = [];
+    (data.work || []).forEach(function (item) {
+      projects.push({
+        kind: "工作项目",
+        period: item.period,
+        role: item.role,
+        org: item.org,
+        bullets: item.bullets || (item.desc ? [item.desc] : [])
+      });
+    });
+    (data.campus || []).forEach(function (item) {
+      projects.push({
+        kind: "在校项目",
+        period: item.period,
+        role: item.role,
+        org: item.org,
+        bullets: item.bullets || (item.desc ? [item.desc] : [])
+      });
+    });
+    grid.innerHTML = projects
+      .map(function (project) {
+        var bullets = (project.bullets || [])
+          .slice(0, 3)
+          .map(function (bullet) {
+            return "<li>" + bullet + "</li>";
+          })
+          .join("");
+        return (
+          '<article class="project-card">' +
+          '<div class="project-card__head">' +
+          '<span class="project-card__tag">' + project.kind + "</span>" +
+          '<span class="project-card__period">' + project.period + "</span>" +
+          "</div>" +
+          "<h3>" + project.role + "</h3>" +
+          '<p class="project-card__org">' + project.org + "</p>" +
+          (bullets ? "<ul>" + bullets + "</ul>" : "") +
+          "</article>"
+        );
+      })
+      .join("");
+
+    var honors = document.getElementById("project-honors");
+    if (honors) {
+      honors.innerHTML = (data.honors || [])
+        .map(function (honor) {
+          return "<li>" + honor + "</li>";
+        })
+        .join("");
+    }
+  }
+
   function refreshIcons() {
     if (window.lucide) {
       window.lucide.createIcons();
@@ -353,7 +389,7 @@
       overview: "概览",
       works: "作品",
       experience: "经历",
-      skills: "技能与荣誉",
+      projects: "项目",
       contact: "联系"
     };
 
@@ -1143,6 +1179,7 @@
   renderSkills();
   renderContact();
   renderOverview();
+  renderProjects();
   refreshIcons();
   bindGroupTabs();
   enableCarouselDrag();

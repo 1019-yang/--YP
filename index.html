@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#0b0b0c">
   <title>杨鹏 · 新媒体运营工作台</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20260817a">
+  <link rel="stylesheet" href="styles.css?v=20260817b">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -22,7 +22,7 @@
           <span class="sidebar-brand__mark">YP</span>
           <span class="sidebar-brand__text">
             <strong>YANG PENG</strong>
-            <small>新媒体运营 · 作品集</small>
+            <small>作品集</small>
           </span>
         </a>
       </div>
@@ -47,9 +47,9 @@
           <i data-lucide="briefcase"></i>
           <span>经历</span>
         </button>
-        <button class="nav-item" type="button" data-panel-target="skills">
-          <i data-lucide="sparkles"></i>
-          <span>技能与荣誉</span>
+        <button class="nav-item" type="button" data-panel-target="projects">
+          <i data-lucide="folder"></i>
+          <span>项目</span>
         </button>
         <button class="nav-item" type="button" data-panel-target="contact">
           <i data-lucide="mail"></i>
@@ -138,20 +138,19 @@
           </section>
 
           <div class="overview-grid">
-            <div class="overview-card overview-card--stats" id="overview-stats"></div>
-            <article class="overview-card overview-card--recent">
-              <div class="overview-card-head">
-                <h3>最近作品</h3>
-                <button class="text-btn" type="button" data-panel-target="works">全部作品 <i data-lucide="arrow-right"></i></button>
-              </div>
-              <div class="overview-works" id="overview-works"></div>
-            </article>
             <article class="overview-card overview-card--timeline">
               <div class="overview-card-head">
                 <h3>经历速览</h3>
                 <button class="text-btn" type="button" data-panel-target="experience">查看经历 <i data-lucide="arrow-right"></i></button>
               </div>
               <div class="overview-experience" id="overview-experience"></div>
+            </article>
+            <article class="overview-card overview-card--recent">
+              <div class="overview-card-head">
+                <h3>最近作品</h3>
+                <button class="text-btn" type="button" data-panel-target="works">全部作品 <i data-lucide="arrow-right"></i></button>
+              </div>
+              <div class="overview-works" id="overview-works"></div>
             </article>
             <article class="overview-card overview-card--honors">
               <div class="overview-card-head">
@@ -196,16 +195,24 @@
           </section>
         </section>
 
-        <section class="workbench-panel" data-panel="skills" id="skills">
-          <section class="about section">
-            <div class="about-copy reveal">
-              <h2>关于我</h2>
-              <p class="about-bio" data-field="bio"></p>
+        <section class="workbench-panel" data-panel="projects" id="projects">
+          <section class="projects section">
+            <div class="section-head reveal">
+              <div>
+                <h2>项目</h2>
+              </div>
             </div>
-            <div class="skills reveal reveal-delay-1">
-              <p class="skills-label">常用工具与能力</p>
-              <ul class="skill-list" id="skill-list"></ul>
-              <p class="skills-extra" data-field="skillsNote"></p>
+            <div class="project-grid" id="project-grid"></div>
+            <div class="projects-foot">
+              <div class="skills reveal reveal-delay-1">
+                <p class="skills-label">常用工具与能力</p>
+                <ul class="skill-list" id="skill-list"></ul>
+                <p class="skills-extra" data-field="skillsNote"></p>
+              </div>
+              <div class="honor-panel reveal reveal-delay-2">
+                <h3>荣誉与获奖</h3>
+                <ul class="honor-list" id="project-honors"></ul>
+              </div>
             </div>
           </section>
         </section>
@@ -253,7 +260,7 @@
     </figure>
   </div>
 
-  <script src="data.js?v=20260817a"></script>
-  <script src="main.js?v=20260817a"></script>
+  <script src="data.js?v=20260817b"></script>
+  <script src="main.js?v=20260817b"></script>
 </body>
 </html>
