@@ -39,11 +39,12 @@
       "9:16": "9 / 16",
       "3:4": "3 / 4",
       "4:3": "4 / 3",
+      "5:7": "5 / 7",
       "1:1": "1 / 1"
     };
     var layoutClass = "";
     var thumbStyle = "";
-    if (isVideo && work.ratio) {
+    if (work.ratio) {
       if (forceLandscape) {
         layoutClass = " landscape";
         thumbStyle = 'style="aspect-ratio: 16 / 9"';
@@ -100,6 +101,73 @@
     return html;
   }
 
+  function viralIterationHtml(items) {
+    var groups = {};
+    (items || []).forEach(function (work) {
+      var key = work.viralGroup || 1;
+      if (!groups[key]) groups[key] = [];
+      groups[key].push(work);
+    });
+    var keys = Object.keys(groups).sort(function (a, b) {
+      return a - b;
+    });
+    var html = "";
+    keys.forEach(function (key, index) {
+      var list = groups[key];
+      html += '<div class="viral-block">';
+      if (index === 0) {
+        html += '<div class="viral-label">爆款视频迭代</div>';
+      }
+      html += '<span class="viral-marker">' + key + "</span>";
+      var gridClass = "";
+      if (list.length === 3) gridClass = " viral-grid--3";
+      if (list.length === 5) gridClass = " viral-grid--5";
+      html += '<div class="viral-grid' + gridClass + '">';
+      list.forEach(function (work) {
+        html += workCardHtml(work, data.works.indexOf(work));
+      });
+      html += "</div></div>";
+    });
+    return html;
+  }
+
+  function accountCardHtml(account) {
+    var avatar = account.avatar
+      ? '<img src="' + account.avatar + '" alt="' + (account.name || "账号头像") + '">'
+      : "<span>" + (account.name ? account.name.slice(0, 1) : "?") + "</span>";
+    var content =
+      '<div class="account-avatar">' + avatar + "</div>" +
+      '<div class="account-meta">' +
+      "<strong>" + (account.name || "待补充") + "</strong>" +
+      "<span>" + (account.followers || "粉丝待补充") + " 粉丝 · " + (account.works || "作品待补充") + " 作品</span>" +
+      "<small>" + (account.platform || "平台待补充") + (account.handle ? " · " + account.handle : "") + "</small>" +
+      "</div>";
+    return account.url
+      ? '<a class="account-card account-card--link" href="' + account.url + '" target="_blank" rel="noopener">' +
+          content + "</a>"
+      : '<div class="account-card">' + content + "</div>";
+  }
+
+  function operatedAccountsHtml() {
+    var accounts = data.operatedAccounts || [];
+    var head =
+      '<div class="mini-box__head"><i data-lucide="at-sign"></i><span>运营账号</span></div>';
+    if (!accounts.length) {
+      return (
+        '<div class="mini-box mini-box--account">' +
+        head +
+        '<p class="mini-box__note">待补充账号链接</p></div>'
+      );
+    }
+    return (
+      '<div class="mini-box mini-box--account">' +
+      head +
+      '<div class="account-list">' +
+      accounts.map(accountCardHtml).join("") +
+      "</div></div>"
+    );
+  }
+
   function renderWorkGroups() {
     var tabsWrap = document.getElementById("work-group-tabs");
     var wrap = document.getElementById("works-groups");
@@ -110,7 +178,7 @@
     (data.workGroups || []).forEach(function (group, index) {
       var items = [];
       (data.works || []).forEach(function (work) {
-        if (work.group === group.id) items.push(work);
+        if (work.group === group.id && !work.manual) items.push(work);
       });
       var active = index === 0 ? " active" : "";
 
@@ -122,14 +190,21 @@
 
       if (items.length) {
         if (group.id === "feed") {
-          panelsHtml += carouselHtml("", items, true);
+          panelsHtml += '<div class="feed-grid">';
+          items.forEach(function (work) {
+            panelsHtml += workCardHtml(work, data.works.indexOf(work), true);
+          });
+          panelsHtml += "</div>";
           panelsHtml += "</section>";
           return;
         }
         var landscape = [];
         var portrait = [];
+        var viral = [];
         items.forEach(function (work) {
-          if (work.ratio === "9:16" || work.ratio === "3:4") {
+          if (work.viral) {
+            viral.push(work);
+          } else if (work.ratio === "9:16" || work.ratio === "3:4") {
             portrait.push(work);
           } else {
             landscape.push(work);
@@ -137,9 +212,15 @@
         });
         if (landscape.length) panelsHtml += carouselHtml("横屏", landscape);
         if (portrait.length) panelsHtml += carouselHtml("竖屏", portrait);
+        var manual = (data.works || []).filter(function (work) {
+          return work.group === group.id && work.manual;
+        });
+        if (manual.length) panelsHtml += carouselHtml("学校活动手册制作", manual);
       } else {
         panelsHtml += '<p class="group-empty">待补充</p>';
       }
+      if (group.id === "high") panelsHtml += viralIterationHtml(viral);
+      if (group.id === "student") panelsHtml += operatedAccountsHtml();
       panelsHtml += "</section>";
     });
     tabsWrap.innerHTML = tabsHtml;
@@ -293,6 +374,41 @@
         .join("");
     }
 
+    var skillsEl = document.getElementById("overview-skills");
+    if (skillsEl) {
+      var groups = [
+        {
+          label: "视频",
+          icon: "video",
+          items: ["视频策划", "脚本创作", "拍摄与剪辑", "剪辑与图片软件"]
+        },
+        {
+          label: "运营",
+          icon: "trending-up",
+          items: ["账号运营", "用户增长与导流", "公众号排版与文案", "数据复盘"]
+        },
+        {
+          label: "工具",
+          icon: "cpu",
+          items: ["AI 内容工具", "Office"]
+        }
+      ];
+      skillsEl.innerHTML = groups
+        .map(function (group) {
+          return (
+            '<div class="overview-skill-group"><h4><i data-lucide="' + group.icon + '"></i>' +
+            group.label + "</h4><ul>" +
+            group.items
+              .map(function (item) {
+                return "<li>" + item + "</li>";
+              })
+              .join("") +
+            "</ul></div>"
+          );
+        })
+        .join("");
+    }
+
     var countEl = document.getElementById("topbar-works-count");
     if (countEl) countEl.textContent = String((data.works || []).length);
   }
@@ -349,6 +465,100 @@
         })
         .join("");
     }
+  }
+
+  function renderAiScriptCase() {
+    var root = document.getElementById("ai-script-case");
+    if (!root || !data.aiScriptFactory) return;
+    var c = data.aiScriptFactory;
+
+    var metrics = (c.metrics || [])
+      .map(function (m) {
+        return (
+          '<div class="ai-case__metric"><strong>' + m.value + "</strong><span>" + m.label + "</span></div>"
+        );
+      })
+      .join("");
+
+    var workflow = (c.workflow || [])
+      .map(function (item, index) {
+        var step = index < 9 ? "0" + (index + 1) : String(index + 1);
+        return (
+          '<div class="ai-case__work-item">' +
+          '<span class="ai-case__step">' + step + "</span>" +
+          '<i data-lucide="' + item.icon + '"></i>' +
+          "<h4>" + item.title + "</h4>" +
+          "<p>" + item.desc + "</p></div>"
+        );
+      })
+      .join("");
+
+    var dims = (c.dimensions || [])
+      .map(function (item) {
+        return (
+          '<div class="ai-case__dim">' +
+          '<i data-lucide="' + item.icon + '"></i>' +
+          "<h4>" + item.name + "</h4>" +
+          "<p>" + item.count + "</p>" +
+          "<span>" + item.note + "</span></div>"
+        );
+      })
+      .join("");
+
+    var timeline = (c.timeline || [])
+      .map(function (item) {
+        return (
+          '<div class="ai-case__tile">' +
+          '<span class="ai-case__phase">' + item.phase + "</span>" +
+          "<h4>" + item.title + "</h4>" +
+          "<p>" + item.desc + "</p>" +
+          "<small>" + (item.tags || []).join(" · ") + "</small></div>"
+        );
+      })
+      .join("");
+
+    var evidence = (c.evidence || [])
+      .map(function (item) {
+        return (
+          '<figure class="ai-case__media">' +
+          '<div class="ai-case__thumb"><img src="' + item.poster + '" alt="' + item.title +
+          '" loading="lazy" decoding="async"><span class="ai-case__play"><i data-lucide="play"></i></span></div>' +
+          "<figcaption><strong>" + item.title + "</strong><span>" + item.note + "</span></figcaption></figure>"
+        );
+      })
+      .join("");
+
+    root.innerHTML =
+      '<section class="ai-case reveal">' +
+      '<div class="ai-case__head">' +
+      '<span class="ai-case__kicker">' + c.kicker + "</span>" +
+      "<h3>" + c.title + "</h3>" +
+      '<p class="ai-case__summary">' + c.summary + "</p>" +
+      '<p class="ai-case__conclusion">' + c.conclusion + "</p>" +
+      "</div>" +
+      '<div class="ai-case__metrics">' + metrics + "</div>" +
+      '<div class="ai-case__block">' +
+      '<div class="ai-case__block-head"><h4><i data-lucide="workflow"></i>量产工作流</h4></div>' +
+      '<div class="ai-case__workflow">' + workflow + "</div>" +
+      "</div>" +
+      '<div class="ai-case__block">' +
+      '<div class="ai-case__block-head"><h4><i data-lucide="sliders-horizontal"></i>可轮换维度体系</h4></div>' +
+      '<div class="ai-case__dims">' + dims + "</div>" +
+      "</div>" +
+      '<div class="ai-case__block">' +
+      '<div class="ai-case__block-head"><h4><i data-lucide="history"></i>迭代时间轴</h4></div>' +
+      '<div class="ai-case__timeline">' + timeline + "</div>" +
+      "</div>" +
+      '<div class="ai-case__block">' +
+      '<div class="ai-case__block-head"><h4><i data-lucide="clapperboard"></i>落地成片</h4></div>' +
+      '<div class="ai-case__evidence">' + evidence + "</div>" +
+      "</div>" +
+      '<div class="ai-case__foot">' +
+      '<p class="ai-case__note">' + c.footerNote + "</p>" +
+      '<button class="ai-case__cta" type="button" data-panel-target="works">' +
+      '<span>查看落地成片</span><i data-lucide="arrow-right"></i></button>' +
+      "</div>" +
+      "</section>";
   }
 
   function refreshIcons() {
@@ -1180,6 +1390,7 @@
   renderContact();
   renderOverview();
   renderProjects();
+  renderAiScriptCase();
   refreshIcons();
   bindGroupTabs();
   enableCarouselDrag();

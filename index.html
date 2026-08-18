@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#0b0b0c">
   <title>杨鹏 · 新媒体运营工作台</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20260817b">
+  <link rel="stylesheet" href="styles.css?v=20260819b">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -28,12 +28,19 @@
       </div>
 
       <div class="sidebar-profile">
-        <img src="assets/hero-portrait.jpg" alt="杨鹏形象照">
-        <strong class="sidebar-profile__name" data-field="name"></strong>
-        <span class="sidebar-profile__tagline" data-field="tagline"></span>
+        <span class="sidebar-profile__label">个人档案</span>
+        <span class="sidebar-profile__name-wrap">
+          <strong class="sidebar-profile__name" data-field="name"></strong>
+          <span class="sidebar-profile__en">YANG PENG</span>
+        </span>
+        <span class="sidebar-profile__tagline">
+          <i data-lucide="quote"></i>
+          <span data-field="tagline"></span>
+        </span>
         <span class="status-pill"><i data-lucide="circle-dot"></i>求职中</span>
       </div>
 
+      <p class="sidebar-nav-label">工作台</p>
       <nav class="sidebar-nav" aria-label="工作台导航">
         <button class="nav-item active" type="button" data-panel-target="overview">
           <i data-lucide="layout-dashboard"></i>
@@ -79,20 +86,11 @@
           <span class="topbar-kicker" id="topbar-kicker">WORKBENCH</span>
           <h1 id="topbar-title">概览</h1>
         </div>
-        <div class="topbar-meta">
-          <span class="topbar-pill"><i data-lucide="video"></i><span id="topbar-works-count"></span> 支视频</span>
-          <span class="topbar-pill"><i data-lucide="eye"></i>100万+ 内容观看</span>
-        </div>
       </header>
 
       <main class="workbench-main" id="top">
         <section class="workbench-panel active" data-panel="overview" id="overview">
-          <section class="hero section">
-            <div class="hero-topline reveal">
-              <span class="hero-meta" data-field="eyebrow"></span>
-              <span class="hero-dot" aria-hidden="true">·</span>
-              <span class="hero-en">PORTFOLIO</span>
-            </div>
+        <section class="hero section">
             <div class="hero-main">
               <h1 class="hero-name" data-field="enName"></h1>
               <div class="hero-name-mask" id="hero-name-mask" aria-hidden="true">
@@ -116,7 +114,15 @@
                 <span class="particle-text__sr">你好，很高兴认识你！</span>
               </div>
               <figure class="hero-figure is-hidden">
-                <img id="hero-image" src="assets/hero-portrait.jpg" alt="杨鹏形象照" width="1080" height="1350" loading="eager">
+                <div class="hero-card">
+                  <img id="hero-image" class="hero-card__portrait" src="https://images.pexels.com/photos/33538805/pexels-photo-33538805.jpeg?auto=compress&cs=tinysrgb&w=1080" alt="杨鹏形象照" width="1080" height="1350" loading="eager">
+                  <span class="hero-card__poster-tag">动态海报</span>
+                  <span class="hero-card__greet">你好，<br>很高兴认识你！</span>
+                  <button class="hero-card__action" type="button" data-panel-target="works">
+                    <span>查看代表作品</span>
+                    <i data-lucide="arrow-right"></i>
+                  </button>
+                </div>
               </figure>
             </div>
             <div class="hero-bottomline reveal">
@@ -140,21 +146,28 @@
           <div class="overview-grid">
             <article class="overview-card overview-card--timeline">
               <div class="overview-card-head">
-                <h3>经历速览</h3>
+                <h3><i data-lucide="briefcase"></i>经历速览</h3>
                 <button class="text-btn" type="button" data-panel-target="experience">查看经历 <i data-lucide="arrow-right"></i></button>
               </div>
               <div class="overview-experience" id="overview-experience"></div>
             </article>
             <article class="overview-card overview-card--recent">
               <div class="overview-card-head">
-                <h3>最近作品</h3>
+                <h3><i data-lucide="clapperboard"></i>最近作品</h3>
                 <button class="text-btn" type="button" data-panel-target="works">全部作品 <i data-lucide="arrow-right"></i></button>
               </div>
               <div class="overview-works" id="overview-works"></div>
             </article>
+            <article class="overview-card overview-card--skills">
+              <div class="overview-card-head">
+                <h3><i data-lucide="sparkles"></i>能力画像</h3>
+                <button class="text-btn" type="button" data-panel-target="projects">查看项目 <i data-lucide="arrow-right"></i></button>
+              </div>
+              <div class="overview-skills" id="overview-skills"></div>
+            </article>
             <article class="overview-card overview-card--honors">
               <div class="overview-card-head">
-                <h3>荣誉与获奖</h3>
+                <h3><i data-lucide="award"></i>荣誉与获奖</h3>
               </div>
               <ul class="honor-list" id="overview-honors"></ul>
             </article>
@@ -185,12 +198,12 @@
               <ol class="timeline" id="education-timeline"></ol>
             </div>
             <div class="timeline-block reveal reveal-delay-1">
-              <h3 class="timeline-title">在校经历</h3>
-              <ol class="timeline" id="campus-timeline"></ol>
-            </div>
-            <div class="timeline-block reveal reveal-delay-2">
               <h3 class="timeline-title">工作经历</h3>
               <ol class="timeline" id="work-timeline"></ol>
+            </div>
+            <div class="timeline-block reveal reveal-delay-2">
+              <h3 class="timeline-title">在校经历</h3>
+              <ol class="timeline" id="campus-timeline"></ol>
             </div>
           </section>
         </section>
@@ -203,6 +216,7 @@
               </div>
             </div>
             <div class="project-grid" id="project-grid"></div>
+            <div id="ai-script-case"></div>
             <div class="projects-foot">
               <div class="skills reveal reveal-delay-1">
                 <p class="skills-label">常用工具与能力</p>
@@ -260,7 +274,7 @@
     </figure>
   </div>
 
-  <script src="data.js?v=20260817b"></script>
-  <script src="main.js?v=20260817b"></script>
+  <script src="data.js?v=20260819b"></script>
+  <script src="main.js?v=20260819b"></script>
 </body>
 </html>
