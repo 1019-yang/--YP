@@ -3081,7 +3081,7 @@ body::before {
 
 /* Replaced sidebar brand mark */
 .sidebar-brand__mark {
-  background: var(--accent) url("assets/yp-logo.jpg") center / cover no-repeat;
+  background: var(--accent) url("assets/yp-logo.jpg?v=20260819d") center / cover no-repeat;
   color: transparent;
   font-size: 0;
   overflow: hidden;
