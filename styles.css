@@ -3079,6 +3079,14 @@ body::before {
   color: #b8944f;
 }
 
+/* Replaced sidebar brand mark */
+.sidebar-brand__mark {
+  background: var(--accent) url("assets/yp-logo.jpg") center / cover no-repeat;
+  color: transparent;
+  font-size: 0;
+  overflow: hidden;
+}
+
 /* AI script factory case study */
 .ai-case {
   margin-top: 18px;
