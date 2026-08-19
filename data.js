@@ -7,7 +7,7 @@ window.PORTFOLIO_DATA = {
   tagline: "一拳打爆地球的一拳超人",
   worksCta: "查看作品",
   contactCta: "联系我",
-  heroImage: "assets/hero-portrait.jpg?v=20260819e",
+  heroImage: "assets/hero-portrait.jpg?v=20260819f",
   heroImageAlt: "杨鹏新媒体运营个人作品集封面",
   bio: "能写脚本、能拍能剪、会用数据复盘的新媒体运营。广告学专业，2026 届本科，做过健康科技公司新媒体运营和长江日报全媒体运营，熟悉从选题到上线的完整流程。",
   skills: [

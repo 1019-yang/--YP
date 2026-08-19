@@ -122,9 +122,14 @@
       var gridClass = "";
       if (list.length === 3) gridClass = " viral-grid--3";
       if (list.length === 5) gridClass = " viral-grid--5";
-      html += '<div class="viral-grid' + gridClass + '">';
+      html += '<div class="carousel viral-grid' + gridClass + '">';
       list.forEach(function (work) {
-        html += workCardHtml(work, data.works.indexOf(work));
+        var card = workCardHtml(work, data.works.indexOf(work));
+        card = card.replace(
+          '<article class="work-card ',
+          '<article class="carousel-card work-card '
+        );
+        html += card;
       });
       html += "</div></div>";
     });

@@ -1127,62 +1127,34 @@ h2 {
 }
 
 .viral-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 16px;
+  display: flex;
+  align-items: stretch;
+  gap: 14px;
   margin-top: 14px;
-}
-
-.viral-grid--3 {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  max-width: 780px;
-}
-
-.viral-grid--5 {
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  overflow-x: auto;
+  padding: 4px 2px 14px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
 }
 
 .viral-grid .work-card,
 .viral-grid .work-card.video.portrait {
-  grid-column: auto;
+  flex: 0 0 210px;
+  width: 210px;
   min-width: 0;
+  scroll-snap-align: start;
 }
 
-@media (max-width: 980px) {
-  .viral-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+.viral-grid--3,
+.viral-grid--5 {
+  max-width: none;
 }
 
-@media (max-width: 560px) {
-  .viral-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 980px) {
-  .viral-grid--3 {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    max-width: 560px;
-  }
-}
-
-@media (max-width: 560px) {
-  .viral-grid--3 {
-    grid-template-columns: 1fr;
-    max-width: none;
-  }
-}
-
-@media (max-width: 980px) {
-  .viral-grid--5 {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 560px) {
-  .viral-grid--5 {
-    grid-template-columns: 1fr;
+@media (max-width: 760px) {
+  .viral-grid .work-card,
+  .viral-grid .work-card.video.portrait {
+    flex-basis: 164px;
+    width: 164px;
   }
 }
 
@@ -3086,7 +3058,7 @@ body::before {
 
 /* Replaced sidebar brand mark */
 .sidebar-brand__mark {
-  background: var(--accent) url("assets/yp-logo.jpg?v=20260819e") center / cover no-repeat;
+  background: var(--accent) url("assets/yp-logo.jpg?v=20260819f") center / cover no-repeat;
   color: transparent;
   font-size: 0;
   overflow: hidden;
