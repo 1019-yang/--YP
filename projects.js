@@ -16,7 +16,6 @@
 
   var DATA = window.PROJECTS_DATA || { aiTheme: {}, timeline: [] };
   var unlocked = false;
-  var editing = false;
 
   // ---------- 渲染小工具 ----------
   function proofHtml(node, idx) {
@@ -42,31 +41,9 @@
     return '<div class="tl-proof">' + html + "</div>";
   }
 
-  // 编辑态：节点内联 SOARM 五段（可改）
-  function detailEditHtml(node, idx) {
-    var d = node.detail || {};
-    var rows = [
-      ["S", "背景", d.situation, "situation"],
-      ["O", "障碍", d.obstacle, "obstacle"],
-      ["A", "行动", d.action, "action"],
-      ["R", "结果", d.result, "result"],
-      ["M", "方法", d.method, "method"]
-    ];
-    var html = rows.map(function (r) {
-      return (
-        '<div class="tl-edit-row">' +
-        '<span class="soarm-letter">' + r[0] + "</span>" +
-        "<div><label>" + r[1] + "</label>" +
-        '<div class="tl-edit-text" data-edit="timeline.' + idx + '.detail.' + r[3] + '" contenteditable="true">' + esc(r[2] || "") + "</div>" +
-        "</div></div>"
-      );
-    }).join("");
-    return '<div class="tl-edit-detail">' + html + "</div>";
-  }
-
-  function nodeHtml(node, idx, edit) {
-    var ea = edit ? ' data-edit="timeline.' + idx + '.title" contenteditable="true"' : "";
-    var sa = edit ? ' data-edit="timeline.' + idx + '.summary" contenteditable="true"' : "";
+  function nodeHtml(node, idx) {
+    var ea = "";
+    var sa = "";
     return (
       '<article class="tl-node" data-idx="' + idx + '">' +
       '<div class="tl-marker"><span class="tl-version">' + esc(node.version || "") + "</span></div>" +
@@ -83,7 +60,7 @@
       '<pre class="tl-prompt-text">' + esc(node.prompt || "") + "</pre>" +
       "</details>" +
       proofHtml(node, idx) +
-      (edit ? detailEditHtml(node, idx) : '<button class="tl-detail-btn" type="button" data-open-v="' + idx + '">查看方法 / 数据</button>') +
+      '<button class="tl-detail-btn" type="button" data-open-v="' + idx + '">查看方法 / 数据</button>' +
       "</div>" +
       "</article>"
     );
@@ -113,8 +90,7 @@
     return '<div class="pd-wrap">' + blocks + "</div>";
   }
 
-  function render(editMode) {
-    var edit = !!editMode;
+  function render() {
     var root = document.getElementById("project-cases");
     if (!root) return;
 
@@ -122,14 +98,14 @@
     var metrics = (theme.metrics || []).map(function (m, i) {
       var v = Array.isArray(m) ? m[0] : m.value;
       var l = Array.isArray(m) ? m[1] : m.label;
-      var va = edit ? ' data-edit="aiTheme.metrics.' + i + '.0" contenteditable="true"' : "";
-      var la = edit ? ' data-edit="aiTheme.metrics.' + i + '.1" contenteditable="true"' : "";
+      var va = "";
+      var la = "";
       return '<div class="ai-metric"><strong' + va + ">" + esc(v) + "</strong><span" + la + ">" + esc(l) + "</span></div>";
     }).join("");
 
     // 版本演进（公开，始终可见）
     var nodes = (DATA.timeline || []).map(function (n, i) {
-      return nodeHtml(n, i, edit);
+      return nodeHtml(n, i);
     }).join("");
 
     // 密码入口：解锁后下方就地展开提示词详情
@@ -157,31 +133,25 @@
       '<div class="ai-cover-head">' +
       '<p class="ai-eyebrow">' + esc(theme.eyebrow || "") + "</p>" +
       "</div>" +
-      '<h2 class="ai-title"' + (edit ? ' data-edit="aiTheme.title" contenteditable="true"' : "") + ">" + esc(theme.title || "AI辅助千川脚本创作") + "</h2>" +
-      '<p class="ai-subtitle"' + (edit ? ' data-edit="aiTheme.subtitle" contenteditable="true"' : "") + ">" + esc(theme.subtitle || "") + "</p>" +
-      (edit ? "" : tagsHtml()) +
-      (edit ? "" : stepsHtml()) +
+      '<h2 class="ai-title">' + esc(theme.title || "AI辅助千川脚本创作") + "</h2>" +
+      '<p class="ai-subtitle">' + esc(theme.subtitle || "") + "</p>" +
+      tagsHtml() +
+      stepsHtml() +
       (metrics ? '<div class="ai-metrics">' + metrics + "</div>" : "") +
       '<button class="ai-col-toggle" id="ai-col-toggle" type="button">点击展开查看 V1–V4 演进 ›</button>' +
-      (edit ? "" : '<button class="ai-edit-btn" id="ai-edit-btn" type="button">编辑文案</button>') +
       "</div>" +
       '<div class="ai-col-cover-video">' +
       videoIterHtml() +
       "</div>" +
       "</div>" +
       // ---- 展开态：内容 ----
-      '<div class="ai-col-content" id="ai-col-content"' + (edit ? "" : " hidden") + ">" +
-      (edit ? '<div class="ai-edit-bar">' +
-        '<span class="ai-edit-hint">编辑模式 · 直接点文字修改，确认后定稿锁定</span>' +
-        '<button class="ai-edit-confirm" id="ai-edit-confirm" type="button">确认定稿</button>' +
-        '<button class="ai-edit-cancel" id="ai-edit-cancel" type="button">取消</button>' +
-        "</div>" : "") +
+      '<div class="ai-col-content" id="ai-col-content" hidden>' +
       '<p class="ai-exp-label">演进经历 · V1–V4</p>' +
       '<div class="timeline">' + nodes + "</div>" +
       '<div class="ai-col-section">' + colCard + "</div>" +
       "</div>" +
       "</section>" +
-      renderAmazonRoute(edit) +
+      renderAmazonRoute() +
       '<p class="projects-tail">更多项目正在填充中，尽情期待</p>';
 
     bindColumn();
@@ -192,18 +162,18 @@
   }
 
   // ---------- 第二个项目：亚马逊运营学习路线 ----------
-  function renderAmazonRoute(edit) {
+  function renderAmazonRoute() {
     var theme = DATA.amazonRoute || {};
     var modules = theme.modules || [];
     if (!modules.length) return "";
 
-    var coverTe = edit ? ' data-edit="amazonRoute.eyebrow" contenteditable="true"' : "";
-    var coverTt = edit ? ' data-edit="amazonRoute.title" contenteditable="true"' : "";
-    var coverTs = edit ? ' data-edit="amazonRoute.subtitle" contenteditable="true"' : "";
+    var coverTe = "";
+    var coverTt = "";
+    var coverTs = "";
 
     var source = "";
     if (theme.source && theme.source.url) {
-      var sl = edit ? ' data-edit="amazonRoute.source.label" contenteditable="true"' : "";
+      var sl = "";
       source =
         '<a class="amz-source" href="' + esc(theme.source.url) + '" target="_blank" rel="noopener">' +
         '<i data-lucide="external-link"></i>' +
@@ -212,8 +182,8 @@
     }
 
     var cards = modules.map(function (m, i) {
-      var ta = edit ? ' data-edit="amazonRoute.modules.' + i + '.title" contenteditable="true"' : "";
-      var da = edit ? ' data-edit="amazonRoute.modules.' + i + '.desc" contenteditable="true"' : "";
+      var ta = "";
+      var da = "";
       return (
         '<article class="amz-module">' +
         '<span class="amz-module__index">' + esc(m.index || "") + "</span>" +
@@ -236,55 +206,6 @@
     );
   }
 
-  // ---------- 文案编辑模式 ----------
-  function setByPath(obj, path, val) {
-    var keys = String(path).split(".");
-    var cur = obj;
-    for (var i = 0; i < keys.length - 1; i++) {
-      var k = keys[i];
-      if (cur[k] == null) cur[k] = /^\d+$/.test(keys[i + 1]) ? [] : {};
-      cur = cur[k];
-    }
-    cur[keys[keys.length - 1]] = val;
-  }
-
-  function collectEdit() {
-    var root = document.getElementById("project-cases");
-    if (!root) return;
-    root.querySelectorAll("[data-edit]").forEach(function (el) {
-      var path = el.getAttribute("data-edit");
-      if (path) setByPath(DATA, path, el.textContent.trim());
-    });
-  }
-
-  function enterEdit() {
-    editing = true;
-    render(true);
-    var content = document.getElementById("ai-col-content");
-    if (content) content.hidden = false;
-    var toggle = document.getElementById("ai-col-toggle");
-    if (toggle) toggle.textContent = "收起 ‹";
-  }
-
-  function exitEdit(apply) {
-    if (apply) collectEdit();
-    editing = false;
-    render(false);
-    if (apply) exportData();
-  }
-
-  function exportData() {
-    var txt = "window.PROJECTS_DATA = " + JSON.stringify(DATA, null, 2) + ";\n";
-    var blob = new Blob([txt], { type: "text/javascript" });
-    var url = URL.createObjectURL(blob);
-    var a = document.createElement("a");
-    a.href = url;
-    a.download = "projects-data.js";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    if (url) URL.revokeObjectURL(url);
-  }
 
 
   // 视频迭代：收起态右侧，展示 V1–V4 代表成片
@@ -331,7 +252,7 @@
     var tags = (DATA.aiTheme && DATA.aiTheme.tags) || [];
     if (!tags.length) return "";
     var t = tags.map(function (tag, i) {
-      return '<span class="ai-tag"' + (editing ? ' data-edit="aiTheme.tags.' + i + '" contenteditable="true"' : "") + ">" + esc(tag) + "</span>";
+      return '<span class="ai-tag">' + esc(tag) + "</span>";
     }).join("");
     return '<div class="ai-tags">' + t + "</div>";
   }
@@ -560,9 +481,6 @@
     // 密码按钮/关闭：事件委托，避免依赖初始化时机
     if (e.target && e.target.id === "pw-submit") verifyPw();
     if (e.target && e.target.id === "pw-close") closePw();
-    if (e.target && e.target.id === "ai-edit-btn") enterEdit();
-    if (e.target && e.target.id === "ai-edit-confirm") exitEdit(true);
-    if (e.target && e.target.id === "ai-edit-cancel") exitEdit(false);
   });
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape") {
