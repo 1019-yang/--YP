@@ -277,35 +277,27 @@
     });
   }
 
-  function timelineHtml(items, edit, prefix) {
+  function timelineHtml(items) {
     var html = "";
     (items || []).forEach(function (item, idx) {
-      var p = prefix + "." + idx;
-      var pa = edit ? ' data-edit="' + p + '.period" contenteditable="true"' : "";
-      var ra = edit ? ' data-edit="' + p + '.role" contenteditable="true"' : "";
-      var oa = edit ? ' data-edit="' + p + '.org" contenteditable="true"' : "";
       html +=
         '<li class="timeline-item">' +
-        '<p class="timeline-period"' + pa + ">" + esc(item.period || "") + "</p>" +
-        "<h3" + ra + ">" + esc(item.role || "") + "</h3>" +
-        '<p class="timeline-org"' + oa + ">" + esc(item.org || "") + "</p>";
+        '<p class="timeline-period">' + esc(item.period || "") + "</p>" +
+        "<h3>" + esc(item.role || "") + "</h3>" +
+        '<p class="timeline-org">' + esc(item.org || "") + "</p>";
       if (item.bullets && item.bullets.length) {
         html += '<ul class="timeline-bullets">';
         item.bullets.forEach(function (bullet, bi) {
-          var ba = edit ? ' data-edit="' + p + '.bullets.' + bi + '" contenteditable="true"' : "";
-          html += "<li" + ba + ">" + esc(bullet) + "</li>";
+          html += "<li>" + esc(bullet) + "</li>";
         });
         html += "</ul>";
       } else if (item.desc) {
-        var da = edit ? ' data-edit="' + p + '.desc" contenteditable="true"' : "";
-        html += '<p class="timeline-desc"' + da + ">" + esc(item.desc) + "</p>";
+        html += '<p class="timeline-desc">' + esc(item.desc) + "</p>";
       }
       html += "</li>";
     });
     return html;
   }
-
-  var expEditing = false;
 
   function esc(s) {
     return String(s == null ? "" : s)
@@ -314,69 +306,17 @@
       .replace(/>/g, "&gt;");
   }
 
-  function expSetByPath(obj, path, val) {
-    var keys = String(path).split(".");
-    var cur = obj;
-    for (var i = 0; i < keys.length - 1; i++) {
-      var k = keys[i];
-      if (cur[k] == null) cur[k] = /^\d+$/.test(keys[i + 1]) ? [] : {};
-      cur = cur[k];
-    }
-    cur[keys[keys.length - 1]] = val;
-  }
-
-  function expCollectEdit() {
-    var root = document.getElementById("experience");
-    if (!root) return;
-    root.querySelectorAll("[data-edit]").forEach(function (el) {
-      var path = el.getAttribute("data-edit");
-      if (path) expSetByPath(data, path, el.textContent.trim());
-    });
-  }
-
-  function expExportData() {
-    var txt = "window.PORTFOLIO_DATA = " + JSON.stringify(data, null, 2) + ";\n";
-    var blob = new Blob([txt], { type: "text/javascript" });
-    var url = URL.createObjectURL(blob);
-    var a = document.createElement("a");
-    a.href = url;
-    a.download = "data.js";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    if (url) URL.revokeObjectURL(url);
-  }
-
-  function expEnterEdit() {
-    expEditing = true;
-    renderTimelines();
-  }
-
-  function expExitEdit(apply) {
-    if (apply) { expCollectEdit(); expExportData(); }
-    expEditing = false;
-    renderTimelines();
-  }
-
   function renderTimelines() {
-    var edit = expEditing;
     var education = document.getElementById("education-timeline");
     var campus = document.getElementById("campus-timeline");
     var work = document.getElementById("work-timeline");
-    if (education) education.innerHTML = timelineHtml(data.education, edit, "education");
-    if (campus) campus.innerHTML = timelineHtml(data.campus, edit, "campus");
-    if (work) work.innerHTML = timelineHtml(data.work, edit, "work");
+    if (education) education.innerHTML = timelineHtml(data.education);
+    if (campus) campus.innerHTML = timelineHtml(data.campus);
+    if (work) work.innerHTML = timelineHtml(data.work);
 
     var head = document.getElementById("experience-head");
     if (head) {
-      head.innerHTML = edit
-        ? '<div class="exp-edit-bar">' +
-          '<span class="exp-edit-hint">编辑模式 · 直接点文字修改，确认后导出 data.js</span>' +
-          '<button class="exp-edit-confirm" id="exp-edit-confirm" type="button">确认定稿</button>' +
-          '<button class="exp-edit-cancel" id="exp-edit-cancel" type="button">取消</button>' +
-          "</div>"
-        : '<div><h2>经历</h2></div>' +
-          '<button class="exp-edit-btn" id="exp-edit-btn" type="button">编辑文案</button>';
+      head.innerHTML = '<div><h2>经历</h2></div>';
     }
   }
 
@@ -1390,16 +1330,6 @@
     });
   }
 
-  function bindExperienceEdit() {
-    document.addEventListener("click", function (e) {
-      var t = e.target;
-      if (!t) return;
-      if (t.id === "exp-edit-btn") expEnterEdit();
-      else if (t.id === "exp-edit-confirm") expExitEdit(true);
-      else if (t.id === "exp-edit-cancel") expExitEdit(false);
-    });
-  }
-
   function bindScrollProgress() {
     var bar = document.getElementById("scroll-progress");
     if (!bar) return;
@@ -1449,7 +1379,6 @@
   bindLightbox();
   bindTheme();
   bindWorkbenchNav();
-  bindExperienceEdit();
   bindReveal();
   bindBackTop();
   bindScrollProgress();
