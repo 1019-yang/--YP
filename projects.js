@@ -151,6 +151,7 @@
       '<div class="ai-col-section">' + colCard + "</div>" +
       "</div>" +
       "</section>" +
+      renderMethodSummary() +
       renderAmazonRoute() +
       '<p class="projects-tail">更多项目正在填充中，尽情期待</p>';
 
@@ -159,6 +160,40 @@
     bindToggle();
     bindVideoIter();
     bindSteps();
+  }
+
+  // ---------- AI 项目方法总结（V1–V4 四步演进） ----------
+  function renderMethodSummary() {
+    var m = DATA.methodSummary;
+    if (!m || !m.steps || !m.steps.length) return "";
+
+    var steps = m.steps.map(function (s) {
+      return (
+        '<article class="ms-step">' +
+        '<div class="ms-step__head">' +
+        '<span class="ms-step__num">' + esc(s.step || "") + "</span>" +
+        (s.version ? '<span class="ms-step__ver">' + esc(s.version) + "</span>" : "") +
+        "</div>" +
+        '<div class="ms-step__body">' +
+        "<h4>" + esc(s.name || "") + "</h4>" +
+        '<p class="ms-what">' + esc(s.what || "") + "</p>" +
+        '<p class="ms-key"><i data-lucide="sparkles"></i><span>' + esc(s.key || "") + "</span></p>" +
+        "</div>" +
+        "</article>"
+      );
+    }).join("");
+
+    return (
+      '<section class="ms-block">' +
+      '<div class="ms-cover">' +
+      '<p class="ai-eyebrow">' + esc(m.eyebrow || "") + "</p>" +
+      '<h2 class="ms-title">' + esc(m.title || "") + "</h2>" +
+      '<p class="ms-subtitle">' + esc(m.subtitle || "") + "</p>" +
+      "</div>" +
+      '<div class="ms-steps">' + steps + "</div>" +
+      (m.takeaway ? '<p class="ms-takeaway">' + esc(m.takeaway) + "</p>" : "") +
+      "</section>"
+    );
   }
 
   // ---------- 第二个项目：亚马逊运营学习路线 ----------
